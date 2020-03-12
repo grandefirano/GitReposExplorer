@@ -1,4 +1,4 @@
-package com.grandefirano.gitreposexplorer
+package com.grandefirano.gitreposexplorer.contracts
 
 interface DetailsContract {
     interface DetailsView{
