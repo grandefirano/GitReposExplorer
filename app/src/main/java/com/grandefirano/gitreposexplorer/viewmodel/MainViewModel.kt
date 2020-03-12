@@ -1,11 +1,13 @@
 package com.grandefirano.gitreposexplorer.viewmodel
 
-import androidx.lifecycle.LiveData
 import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.contracts.MainContract
-import com.grandefirano.gitreposexplorer.model.Repository
+import com.grandefirano.gitreposexplorer.model.ModelImpl
 
-class MainViewModel(val view:MainContract.MainView,val model: Repository):MainContract.MainViewModel {
+class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainContract.MainViewModel {
+
+
+
     override fun onTypeChange(searchText: String) {
         TODO("Not yet implemented")
     }
@@ -16,7 +18,8 @@ class MainViewModel(val view:MainContract.MainView,val model: Repository):MainCo
 
         model.getRepositories("android")
 
-        view.updateList(getFilteredList())
+        view.initView(model.repos)
+
 
     }
 
@@ -24,6 +27,7 @@ class MainViewModel(val view:MainContract.MainView,val model: Repository):MainCo
         TODO("Not yet implemented")
     }
 
+    //TODO do model?
     fun getFilteredList():List<Repo>{
         return model.repos
     }

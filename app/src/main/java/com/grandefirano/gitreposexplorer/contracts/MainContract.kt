@@ -6,6 +6,7 @@ interface MainContract {
 
     interface MainView {
 
+        fun initView(repositories:List<Repo>)
         fun updateList(repositories:List<Repo>)
 
         fun goToDetailsView(id: Int)

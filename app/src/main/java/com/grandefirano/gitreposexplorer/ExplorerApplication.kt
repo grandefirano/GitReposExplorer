@@ -1,6 +1,7 @@
 package com.grandefirano.gitreposexplorer
 
 import android.app.Application
+import android.util.Log
 import com.grandefirano.gitreposexplorer.api.ApiConstants
 import com.grandefirano.gitreposexplorer.api.ApiInterface
 import retrofit2.Retrofit
@@ -15,12 +16,14 @@ class ExplorerApplication: Application() {
     }
 
     override fun onCreate() {
+        println("api inter")
         super.onCreate()
-
+        println("api inter")
         val retrofit= Retrofit.Builder()
             .baseUrl(ApiConstants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         apiInterface=retrofit.create(ApiInterface::class.java)
+
     }
 }
