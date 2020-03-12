@@ -30,8 +30,6 @@ class ModelImpl:Model {
 
                     this@ModelImpl.repos.value=response.body()!!.repositories
 
-                    println("ADDD"+response.body()!!.repositories)
-
                 }
             }
         })

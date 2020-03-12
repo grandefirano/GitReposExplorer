@@ -5,4 +5,5 @@ interface Model {
     fun getRepositories(searchText:String)
     fun getTrending()
     fun getDetails(id:Int)
+    fun downloadPhoto(url:String)
 }

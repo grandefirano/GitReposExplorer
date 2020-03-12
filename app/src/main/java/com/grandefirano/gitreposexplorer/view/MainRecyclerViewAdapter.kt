@@ -23,6 +23,7 @@ class MainRecyclerViewAdapter(val context: Context): RecyclerView.Adapter<MainRe
     }
 
     override fun onBindViewHolder(holder: RepoHolder, position: Int) {
+
         var repo=repos[position]
         holder.itemView.nameOfRepoTextView.text = repo.name
         holder.itemView.nameOfOwnerTextView.text=repo.owner.login
@@ -30,6 +31,7 @@ class MainRecyclerViewAdapter(val context: Context): RecyclerView.Adapter<MainRe
     }
 
     class RepoHolder(itemView:View):RecyclerView.ViewHolder(itemView){
+        //fun bind(viewModel)
 
 
     }

@@ -42,12 +42,9 @@ class MainActivity : AppCompatActivity(),
 
         mainViewModel.filteredRepositories.observe(this, Observer {
             adapter.repos=it
-            print("ddddddddddd")
             adapter.notifyDataSetChanged()
         })
 
-
-        //TODO:BARDZO DO ZMIANY
 
     }
 

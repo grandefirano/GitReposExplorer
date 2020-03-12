@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".view.DetailsActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="77dp"
+        android:layout_height="91dp"
+        app:srcCompat="@drawable/default_profile_photo"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="42dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
