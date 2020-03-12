@@ -1,6 +1,7 @@
 package com.grandefirano.gitreposexplorer
 
 import android.app.Application
+import com.grandefirano.gitreposexplorer.api.ApiConstants
 import com.grandefirano.gitreposexplorer.api.ApiInterface
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
