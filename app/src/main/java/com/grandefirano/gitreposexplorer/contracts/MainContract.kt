@@ -1,10 +1,12 @@
 package com.grandefirano.gitreposexplorer.contracts
 
+import com.grandefirano.gitreposexplorer.api.Repo
+
 interface MainContract {
 
     interface MainView {
 
-        fun updateList()
+        fun updateList(repositories:List<Repo>)
 
         fun goToDetailsView(id: Int)
     }

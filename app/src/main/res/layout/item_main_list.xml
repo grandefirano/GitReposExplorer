@@ -16,7 +16,7 @@
 
         <ImageView
 
-            android:id="@+id/imageView"
+            android:id="@+id/repoPhotoTextView"
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,23 +24,23 @@
             app:srcCompat="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/nameOfRepoTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:text="TextView"
             android:textColor="#F32C2B2B"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/repoPhotoTextView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/nameOfOwnerTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="TextView"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintStart_toEndOf="@+id/repoPhotoTextView"
+            app:layout_constraintTop_toBottomOf="@+id/nameOfRepoTextView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

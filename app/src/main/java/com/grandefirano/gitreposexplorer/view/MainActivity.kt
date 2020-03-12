@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import com.grandefirano.gitreposexplorer.R
+import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.contracts.MainContract
 
 class MainActivity : AppCompatActivity(),
@@ -22,12 +23,17 @@ class MainActivity : AppCompatActivity(),
         return true
     }
 
+    override fun updateList(repositories: List<Repo>) {
 
-    override fun updateList() {
-        //TODO("Not yet implemented")
     }
+
 
     override fun goToDetailsView(id: Int) {
         //TODO("Not yet implemented")
+    }
+
+
+    private fun initRecyclerView(){
+
     }
 }
