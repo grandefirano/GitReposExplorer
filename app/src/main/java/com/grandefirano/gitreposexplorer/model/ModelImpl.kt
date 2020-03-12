@@ -1,5 +1,7 @@
 package com.grandefirano.gitreposexplorer.model
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.api.RepoSearchResult
@@ -11,7 +13,7 @@ import retrofit2.Response
 class ModelImpl:Model {
 
 
-     var repos= listOf<Repo>()
+     var repos= MutableLiveData<List<Repo>>()
 
     override fun getRepositories(searchText: String) {
         ExplorerApplication.apiInterface.getRepositories(searchText).enqueue(object:
@@ -26,7 +28,7 @@ class ModelImpl:Model {
             ) {
                 if(response.isSuccessful){
 
-                    this@ModelImpl.repos = response.body()!!.repositories
+                    this@ModelImpl.repos.value=response.body()!!.repositories
 
                     println("ADDD"+response.body()!!.repositories)
 

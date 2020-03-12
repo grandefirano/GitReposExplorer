@@ -6,6 +6,8 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.grandefirano.gitreposexplorer.R
 import com.grandefirano.gitreposexplorer.api.Repo
@@ -25,10 +27,25 @@ class MainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
 
 
+
+
         //TODO: DO ZMIANY
         val modelImpl=ModelImpl()
         val mainViewModel=MainViewModel(this,modelImpl)
         mainViewModel.onViewInit()
+
+        repoRecyclerView.layoutManager=LinearLayoutManager(this)
+        repoRecyclerView.setHasFixedSize(true)
+
+        adapter=MainRecyclerViewAdapter(this)
+        repoRecyclerView.adapter=adapter
+
+        mainViewModel.filteredRepositories.observe(this, Observer {
+            adapter.repos=it
+            print("ddddddddddd")
+            adapter.notifyDataSetChanged()
+        })
+
 
         //TODO:BARDZO DO ZMIANY
 
@@ -38,6 +55,10 @@ class MainActivity : AppCompatActivity(),
         val inflater=menuInflater
         inflater.inflate(R.menu.menu_main,menu)
         return true
+    }
+
+    override fun initView(repositories: LiveData<List<Repo>>) {
+
     }
 
     override fun updateList(repositories: List<Repo>) {
@@ -51,9 +72,4 @@ class MainActivity : AppCompatActivity(),
     }
 
 
-    override fun initView(repositories:List<Repo>){
-        repoRecyclerView.layoutManager=LinearLayoutManager(this)
-        adapter=MainRecyclerViewAdapter(repositories,this)
-        repoRecyclerView.adapter=adapter
-    }
 }

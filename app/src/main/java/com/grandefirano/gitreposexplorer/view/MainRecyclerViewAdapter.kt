@@ -9,8 +9,9 @@ import com.grandefirano.gitreposexplorer.R
 import com.grandefirano.gitreposexplorer.api.Repo
 import kotlinx.android.synthetic.main.item_main_list.view.*
 
-class MainRecyclerViewAdapter(var repos: List<Repo>,val context: Context): RecyclerView.Adapter<MainRecyclerViewAdapter.RepoHolder>() {
+class MainRecyclerViewAdapter(val context: Context): RecyclerView.Adapter<MainRecyclerViewAdapter.RepoHolder>() {
 
+    var repos= listOf<Repo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoHolder {
        var itemView=LayoutInflater.from(context).inflate(R.layout.item_main_list,parent,false)

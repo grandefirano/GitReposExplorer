@@ -1,12 +1,13 @@
 package com.grandefirano.gitreposexplorer.contracts
 
+import androidx.lifecycle.LiveData
 import com.grandefirano.gitreposexplorer.api.Repo
 
 interface MainContract {
 
     interface MainView {
 
-        fun initView(repositories:List<Repo>)
+        fun initView(repositories:LiveData<List<Repo>>)
         fun updateList(repositories:List<Repo>)
 
         fun goToDetailsView(id: Int)
