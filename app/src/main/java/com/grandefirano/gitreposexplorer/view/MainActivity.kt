@@ -99,8 +99,8 @@ class MainActivity : AppCompatActivity(),
     override fun goToDetailsView(owner: String, repoName: String) {
         intent=Intent(this,DetailsActivity::class.java)
         //TODO CONSTANTS
-        intent.putExtra("owner",owner)
-        intent.putExtra("repo_name",repoName)
+        intent.putExtra(ViewConstants.INTENT_OWNER,owner)
+        intent.putExtra(ViewConstants.INTENT_REPOSITORY_NAME,repoName)
         startActivity(intent)
     }
 
