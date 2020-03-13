@@ -42,4 +42,8 @@ class ModelImpl:Model {
     override fun getDetails(id: Int) {
         TODO("Not yet implemented")
     }
+
+    override fun downloadPhoto(url: String) {
+        TODO("Not yet implemented")
+    }
 }
