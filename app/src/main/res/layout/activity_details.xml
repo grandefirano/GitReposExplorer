@@ -67,13 +67,14 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
-                android:layout_weight="1"
                 android:id="@+id/watchTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="100"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:text="100"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <ImageView
@@ -84,13 +85,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="171dp" />
+
             <TextView
-                android:layout_weight="1"
                 android:id="@+id/starTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="100"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:text="100"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -105,13 +107,12 @@
 
             <TextView
 
-                android:layout_weight="1"
                 android:id="@+id/forkTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="100"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:text="100"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="99dp" />
 
@@ -125,13 +126,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="171dp" />
+
             <TextView
-                android:layout_weight="1"
                 android:id="@+id/contributorCountTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="100"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:text="100"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="212dp" />
 
