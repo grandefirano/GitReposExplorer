@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(),
         repoRecyclerView.layoutManager=LinearLayoutManager(this)
         repoRecyclerView.setHasFixedSize(true)
 
-        adapter=MainRecyclerViewAdapter(this)
+        adapter=MainRecyclerViewAdapter(this,mainViewModel)
         repoRecyclerView.adapter=adapter
 
         mainViewModel.filteredRepositories.observe(this, Observer {

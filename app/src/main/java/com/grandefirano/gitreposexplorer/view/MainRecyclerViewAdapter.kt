@@ -9,17 +9,18 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.grandefirano.gitreposexplorer.R
 import com.grandefirano.gitreposexplorer.api.Repo
+import com.grandefirano.gitreposexplorer.databinding.ItemMainListBinding
 import com.grandefirano.gitreposexplorer.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.item_main_list.view.*
 
-class MainRecyclerViewAdapter(val context: Context): RecyclerView.Adapter<MainRecyclerViewAdapter.RepoHolder>() {
+class MainRecyclerViewAdapter(val context: Context,val viewModel: MainViewModel): RecyclerView.Adapter<MainRecyclerViewAdapter.RepoHolder>() {
 
     var repos= listOf<Repo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding =
-            DataBindingUtil.inflate<ViewDataBinding>(layoutInflater, R.layout.item_main_list, parent, false)
+            DataBindingUtil.inflate<ItemMainListBinding>(layoutInflater, R.layout.item_main_list, parent, false)
 
 
         var itemView=LayoutInflater.from(context).inflate(R.layout.item_main_list,parent,false)
@@ -32,15 +33,20 @@ class MainRecyclerViewAdapter(val context: Context): RecyclerView.Adapter<MainRe
 
     override fun onBindViewHolder(holder: RepoHolder, position: Int) {
 
-        var repo=repos[position]
-        holder.itemView.nameOfRepoTextView.text = repo.name
-        holder.itemView.nameOfOwnerTextView.text=repo.owner.login
-        holder.itemView.repoPhotoTextView
+        holder.bind(viewModel,position)
+
     }
 
-    class RepoHolder(itemView:View):RecyclerView.ViewHolder(itemView){
+    class RepoHolder(val binding: ItemMainListBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(viewModel:MainViewModel,position: Int){
 
+            binding.position=position
+            binding.viewModel=viewModel
+            binding.executePendingBindings()
+//            var repo=repos[position]
+//            holder.itemView.nameOfRepoTextView.text = repo.name
+//            holder.itemView.nameOfOwnerTextView.text=repo.owner.login
+//            holder.itemView.repoPhotoTextView
         }
 
 
