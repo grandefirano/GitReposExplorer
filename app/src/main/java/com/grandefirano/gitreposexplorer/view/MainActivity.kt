@@ -44,6 +44,10 @@ class MainActivity : AppCompatActivity(),
             adapter.repos=it
             adapter.notifyDataSetChanged()
         })
+            //TODO:DODOfdotodotad
+
+
+
 
 
     }
@@ -53,8 +57,8 @@ class MainActivity : AppCompatActivity(),
         inflater.inflate(R.menu.menu_main,menu)
 
         val searchItem = menu.findItem(R.id.app_bar_search)
-
-        (searchItem.actionView as SearchView).setOnQueryTextListener(object :
+        val searchView=searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
@@ -65,6 +69,11 @@ class MainActivity : AppCompatActivity(),
                 return false
             }
         })
+
+        searchButton.setOnClickListener {
+            searchItem.expandActionView()
+            searchView.requestFocus()
+        }
 
 
         return true
