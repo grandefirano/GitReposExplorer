@@ -7,7 +7,8 @@ interface MainContract {
 
     interface MainView {
 
-        fun initView(repositories:LiveData<List<Repo>>)
+        fun showList()
+        fun showWelcomeScreen()
         fun updateList(repositories:List<Repo>)
 
         fun goToDetailsView(id: Int)

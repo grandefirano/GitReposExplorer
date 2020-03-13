@@ -2,6 +2,7 @@ package com.grandefirano.gitreposexplorer.view
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.adapters.SearchViewBindingAdapter.setOnQueryTextListener
@@ -69,9 +70,16 @@ class MainActivity : AppCompatActivity(),
         return true
     }
 
-    override fun initView(repositories: LiveData<List<Repo>>) {
-
+    override fun showList() {
+        repoRecyclerView.visibility= View.VISIBLE
+        welcomeLayout.visibility=View.GONE
     }
+
+    override fun showWelcomeScreen() {
+        repoRecyclerView.visibility=View.GONE
+        welcomeLayout.visibility=View.VISIBLE
+    }
+
 
     override fun updateList(repositories: List<Repo>) {
         adapter.notifyDataSetChanged()

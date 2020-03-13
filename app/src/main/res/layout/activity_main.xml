@@ -13,43 +13,46 @@
         android:visibility="gone"
         tools:visibility="visible"/>
 
-    <ImageView
-        android:id="@+id/logoImageView"
-        android:layout_width="270dp"
-        android:layout_height="270dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="90dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/repoRecyclerView"
-        app:srcCompat="@drawable/logo_github" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
+    <RelativeLayout
+        android:id="@+id/welcomeLayout"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="32dp"
-        android:gravity="center_horizontal"
-        android:text="Welcome to unofficial Repository Explorer made by grandefirano"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/repoRecyclerView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoImageView" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/searchButton"
-        android:layout_width="236dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/square_rounded_green"
-        android:text="Search For Repo"
-        android:textColor="@color/colorTextSecondary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <ImageView
 
+            android:id="@+id/logoImageView"
+            android:layout_width="270dp"
+            android:layout_height="270dp"
+            android:layout_centerInParent="false"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/logo_github"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/logoImageView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:text="Welcome to unofficial Repository Explorer made by grandefirano" />
+
+        <Button
+            android:id="@+id/searchButton"
+            android:layout_width="236dp"
+            android:layout_height="51dp"
+            android:layout_below="@id/textView"
+
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/square_rounded_green"
+            android:text="Search For Repo"
+            android:textColor="@color/colorTextSecondary" />
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,20 +10,15 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
     var filteredRepositories:LiveData<List<Repo>> = model.repos
 
     override fun onQueryChange(searchText: String) {
-        if(searchText!=null&& searchText!="")
-        model.getRepositories(searchText)
+        if(searchText!=null&& searchText!="") {
+            model.getRepositories(searchText)
+            view.showList()
+        }
         else onViewInit()
     }
 
     override fun onViewInit() {
-
-
-        //TODO DO ZMIANY
-        model.getRepositories("android")
-
-        view.initView(model.repos)
-
-
+        view.showWelcomeScreen()
     }
 
     override fun onSortByClicked() {
