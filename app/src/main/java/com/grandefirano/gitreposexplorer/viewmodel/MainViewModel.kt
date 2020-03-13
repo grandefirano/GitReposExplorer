@@ -25,6 +25,11 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
         TODO("Not yet implemented")
     }
 
-    //TODO do model?
+    override fun onRepoClicked(position:Int) {
+        var owner= model.repos.value!![position].owner.login
+        var repoName= model.repos.value!![position].name
+        view.goToDetailsView(owner,repoName)
+    }
+
 
 }

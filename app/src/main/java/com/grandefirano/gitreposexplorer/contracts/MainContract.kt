@@ -11,12 +11,13 @@ interface MainContract {
         fun showWelcomeScreen()
         fun updateList(repositories:List<Repo>)
 
-        fun goToDetailsView(id: Int)
+        fun goToDetailsView(owner:String,repoName:String)
     }
 
     interface MainViewModel{
         fun onQueryChange(searchText:String)
         fun onViewInit()
         fun onSortByClicked()
+        fun onRepoClicked(position:Int)
     }
 }

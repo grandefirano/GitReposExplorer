@@ -43,10 +43,7 @@ class MainRecyclerViewAdapter(val context: Context,val viewModel: MainViewModel)
             binding.position=position
             binding.viewModel=viewModel
             binding.executePendingBindings()
-//            var repo=repos[position]
-//            holder.itemView.nameOfRepoTextView.text = repo.name
-//            holder.itemView.nameOfOwnerTextView.text=repo.owner.login
-//            holder.itemView.repoPhotoTextView
+
         }
 
 

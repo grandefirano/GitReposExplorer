@@ -1,5 +1,6 @@
 package com.grandefirano.gitreposexplorer.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -95,9 +96,12 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-
-    override fun goToDetailsView(id: Int) {
-        //TODO("Not yet implemented")
+    override fun goToDetailsView(owner: String, repoName: String) {
+        intent=Intent(this,DetailsActivity::class.java)
+        //TODO CONSTANTS
+        intent.putExtra("owner",owner)
+        intent.putExtra("repo_name",repoName)
+        startActivity(intent)
     }
 
 
