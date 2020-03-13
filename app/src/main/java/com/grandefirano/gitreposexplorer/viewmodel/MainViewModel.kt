@@ -9,14 +9,16 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
 
     var filteredRepositories:LiveData<List<Repo>> = model.repos
 
-    override fun onTypeChange(searchText: String) {
-        TODO("Not yet implemented")
+    override fun onQueryChange(searchText: String) {
+        if(searchText!=null&& searchText!="")
+        model.getRepositories(searchText)
+        else onViewInit()
     }
 
     override fun onViewInit() {
 
 
-
+        //TODO DO ZMIANY
         model.getRepositories("android")
 
         view.initView(model.repos)

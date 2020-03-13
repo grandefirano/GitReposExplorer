@@ -14,7 +14,7 @@ interface MainContract {
     }
 
     interface MainViewModel{
-        fun onTypeChange(searchText:String)
+        fun onQueryChange(searchText:String)
         fun onViewInit()
         fun onSortByClicked()
     }

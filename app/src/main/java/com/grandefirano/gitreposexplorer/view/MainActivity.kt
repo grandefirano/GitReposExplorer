@@ -1,18 +1,16 @@
 package com.grandefirano.gitreposexplorer.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.databinding.adapters.SearchViewBindingAdapter.setOnQueryTextListener
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.grandefirano.gitreposexplorer.R
 import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.contracts.MainContract
-import com.grandefirano.gitreposexplorer.contracts.Model
 import com.grandefirano.gitreposexplorer.model.ModelImpl
 import com.grandefirano.gitreposexplorer.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,6 +20,7 @@ class MainActivity : AppCompatActivity(),
 
     private lateinit var adapter:MainRecyclerViewAdapter
 
+    private lateinit var mainViewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,7 +30,7 @@ class MainActivity : AppCompatActivity(),
 
         //TODO: DO ZMIANY
         val modelImpl=ModelImpl()
-        val mainViewModel=MainViewModel(this,modelImpl)
+        mainViewModel=MainViewModel(this,modelImpl)
         mainViewModel.onViewInit()
 
         repoRecyclerView.layoutManager=LinearLayoutManager(this)
@@ -48,9 +47,25 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater=menuInflater
         inflater.inflate(R.menu.menu_main,menu)
+
+        val searchItem = menu.findItem(R.id.app_bar_search)
+
+        (searchItem.actionView as SearchView).setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                mainViewModel.onQueryChange(newText)
+                return false
+            }
+        })
+
+
         return true
     }
 
