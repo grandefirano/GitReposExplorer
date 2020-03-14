@@ -37,6 +37,8 @@ class ModelImpl:Model {
 
     }
 
+
+
     override fun getRepositories(searchText: String) {
         ExplorerApplication.apiInterface.getRepositories(searchText).enqueue(object:
             Callback<RepoSearchResult>{
@@ -90,6 +92,10 @@ class ModelImpl:Model {
             }
 
         })
+    }
+
+    override fun getColorOfLanguage(language: String) {
+        TODO("Not yet implemented")
     }
 
 

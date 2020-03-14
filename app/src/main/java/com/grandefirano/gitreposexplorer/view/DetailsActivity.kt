@@ -40,7 +40,7 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
         println("owner detailActiv "+modelImpl.toString())
 
         binding.viewModel=detailsViewModel
-        binding.executePendingBindings()
+        //binding.executePendingBindings()
         //val position:Int=intent.getIntExtra("id",0)
 
         detailsViewModel.onInitView()
