@@ -26,7 +26,7 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
     }
 
     override fun onRepoClicked(position:Int) {
-        var repo=model.repos.value!![position]
+        val repo=model.repos.value!![position]
         model.setActualRepository(repo)
 //        var owner= model.repos.value!![position].owner.login
 //        var repoName= model.repos.value!![position].name

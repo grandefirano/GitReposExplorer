@@ -8,6 +8,7 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
 import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.contracts.DetailsContract
@@ -34,8 +35,10 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
         /**
          * TOZMIENIC
          */
-        var modelImpl=ModelImpl.getInstance()
+        var modelImpl=ExplorerApplication.model
         var detailsViewModel=DetailsViewModel(this,modelImpl)
+
+        println("owner detailActiv "+modelImpl.toString())
 
         binding.viewModel=detailsViewModel
         binding.executePendingBindings()

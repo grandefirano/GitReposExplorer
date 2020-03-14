@@ -10,6 +10,7 @@ import androidx.databinding.adapters.SearchViewBindingAdapter.setOnQueryTextList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
 import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.contracts.MainContract
@@ -32,9 +33,11 @@ class MainActivity : AppCompatActivity(),
 
 
         //TODO: DO ZMIANY
-        val modelImpl=ModelImpl()
+        val modelImpl=ExplorerApplication.model
         mainViewModel=MainViewModel(this,modelImpl)
         mainViewModel.onViewInit()
+
+        println("owner mainActiv "+modelImpl.toString())
 
         repoRecyclerView.layoutManager=LinearLayoutManager(this)
         repoRecyclerView.setHasFixedSize(true)
