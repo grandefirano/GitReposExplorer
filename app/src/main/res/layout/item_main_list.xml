@@ -4,9 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+
         <variable
-            name="position"
-            type="int" />
+            name="repo"
+            type="com.grandefirano.gitreposexplorer.api.Repo" />
         <variable
             name="viewModel"
             type="com.grandefirano.gitreposexplorer.viewmodel.MainViewModel" />
@@ -18,7 +19,7 @@
         android:layout_width="match_parent"
         android:paddingVertical="7dp"
         android:paddingHorizontal="5dp"
-        android:onClick="@{()->viewModel.onRepoClicked(position)}"
+        android:onClick="@{()->viewModel.onRepoClicked(repo)}"
         android:layout_height="wrap_content">
 
 
@@ -30,7 +31,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/default_photo"
-            app:imageUrl="@{viewModel.filteredRepositories[position].owner.avatar}"
+            app:imageUrl="@{repo.owner.avatar}"
             app:civ_border_color="#fff"
             app:civ_border_width="2dp" />
        <!-- <ImageView
@@ -50,7 +51,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
-            android:text="@{viewModel.filteredRepositories[position].name}"
+            android:text="@{repo.name}"
             android:textColor="#F32C2B2B"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/countOfStars"
@@ -66,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:text="@{viewModel.filteredRepositories[position].owner.login}"
+            android:text="@{repo.owner.login}"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/countOfStars"
             app:layout_constraintStart_toEndOf="@+id/repoPhotoTextView"
@@ -80,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
-            android:text="@{String.valueOf(viewModel.filteredRepositories[position].starsCount)}"
+            android:text="@{String.valueOf(repo.starsCount)}"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/starImageView"

@@ -10,6 +10,7 @@ import androidx.databinding.adapters.SearchViewBindingAdapter.setOnQueryTextList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
 import com.grandefirano.gitreposexplorer.api.Repo
@@ -41,24 +42,27 @@ class MainActivity : AppCompatActivity(),
 
         repoRecyclerView.layoutManager=LinearLayoutManager(this)
         repoRecyclerView.setHasFixedSize(true)
+        repoRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
 
-        adapter=MainRecyclerViewAdapter(this,mainViewModel)
+            }
+        })
+//        if(llm.findLastCompletelyVisibleItemPosition() == data.length() -1){
+//            //bottom of list!
+//            loadMoreData();
+//        }
+
+        adapter=MainRecyclerViewAdapter(mainViewModel)
         repoRecyclerView.adapter=adapter
 
+
+
         mainViewModel.filteredRepositories.observe(this, Observer {
-            adapter.repos=it
-            adapter.notifyDataSetChanged()
-
-
-            //
+            adapter.submitList(it)
+//            adapter.notifyDataSetChanged()
 
         })
-            //TODO:DODOfdotodotad
-
-
-
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

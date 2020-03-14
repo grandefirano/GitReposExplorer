@@ -18,6 +18,6 @@ interface MainContract {
         fun onQueryChange(searchText:String)
         fun onViewInit()
         fun onSortByClicked()
-        fun onRepoClicked(position:Int)
+        fun onRepoClicked(repo:Repo)
     }
 }
