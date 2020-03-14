@@ -40,12 +40,20 @@ class MainActivity : AppCompatActivity(),
 
         println("owner mainActiv "+modelImpl.toString())
 
-        repoRecyclerView.layoutManager=LinearLayoutManager(this)
+        val layoutManager=LinearLayoutManager(this)
+        repoRecyclerView.layoutManager=layoutManager
         repoRecyclerView.setHasFixedSize(true)
+        var totalItemCount:Int
         repoRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val linearLayoutManager=recyclerView.layoutManager as LinearLayoutManager
+                totalItemCount=layoutManager.itemCount
+                if (linearLayoutManager != null &&
+                    linearLayoutManager.findLastCompletelyVisibleItemPosition()
+                    ==totalItemCount-1){
+                    mainViewModel.loadMoreItems()
+                }
             }
         })
 //        if(llm.findLastCompletelyVisibleItemPosition() == data.length() -1){
@@ -60,6 +68,7 @@ class MainActivity : AppCompatActivity(),
 
         mainViewModel.filteredRepositories.observe(this, Observer {
             adapter.submitList(it)
+//            totalItemCount=layoutManager.itemCount
 //            adapter.notifyDataSetChanged()
 
         })
@@ -108,11 +117,8 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-    override fun goToDetailsView(id:Int) {
+    override fun goToDetailsView() {
         intent=Intent(this,DetailsActivity::class.java)
-        //TODO CONSTANTS
-        intent.putExtra("id",id)
-        //intent.putExtra(ViewConstants.INTENT_REPOSITORY_NAME,repoName)
         startActivity(intent)
     }
 

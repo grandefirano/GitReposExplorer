@@ -11,7 +11,7 @@ interface MainContract {
         fun showWelcomeScreen()
         fun updateList(repositories:List<Repo>)
 
-        fun goToDetailsView(id:Int)
+        fun goToDetailsView()
     }
 
     interface MainViewModel{
@@ -19,5 +19,6 @@ interface MainContract {
         fun onViewInit()
         fun onSortByClicked()
         fun onRepoClicked(repo:Repo)
+        fun loadMoreItems()
     }
 }

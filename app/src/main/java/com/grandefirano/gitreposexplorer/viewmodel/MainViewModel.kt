@@ -27,14 +27,18 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
 
     override fun onRepoClicked(repo:Repo) {
 
-        println("owner mainVM"+repo.toString())
+
        // val repo=model.repos.value!![position]
         model.setActualRepository(repo)
 //        var owner= model.repos.value!![position].owner.login
 //        var repoName= model.repos.value!![position].name
 //        println("owner mainVM"+model.repos.value!![position].name)
 
-        view.goToDetailsView(1)
+        view.goToDetailsView()
+    }
+
+    override fun loadMoreItems() {
+        TODO("Not yet implemented")
     }
 
 

@@ -37,23 +37,16 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
         var modelImpl=ExplorerApplication.model
         var detailsViewModel=DetailsViewModel(this,modelImpl)
 
-        println("owner detailActiv "+modelImpl.toString())
 
         binding.viewModel=detailsViewModel
-        //binding.executePendingBindings()
-        //val position:Int=intent.getIntExtra("id",0)
-
         detailsViewModel.onInitView()
-        println("owner detailActiv "+detailsViewModel.actualRepo.value.toString())
-        detailsViewModel.actualRepo.observe(this, Observer {
-            println("owner detailActiv "+it.name)
-           // println("owner detailActiv "+it.contributors[0]?.login)
-        })
+
+//        detailsViewModel.actualRepo.observe(this, Observer {
+//            println("owner detailActiv "+it.name)
+//           // println("owner detailActiv "+it.contributors[0]?.login)
+//        })
 
         binding.lifecycleOwner = this
-        ///
-
-
 
     }
 
