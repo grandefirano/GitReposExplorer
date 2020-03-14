@@ -1,5 +1,7 @@
 package com.grandefirano.gitreposexplorer.contracts
 
+import com.grandefirano.gitreposexplorer.api.Repo
+
 interface DetailsContract {
     interface DetailsView{
 

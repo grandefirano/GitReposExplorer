@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity(),
 
     private lateinit var adapter:MainRecyclerViewAdapter
 
+
     private lateinit var mainViewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +45,10 @@ class MainActivity : AppCompatActivity(),
         mainViewModel.filteredRepositories.observe(this, Observer {
             adapter.repos=it
             adapter.notifyDataSetChanged()
+
+
+            //
+
         })
             //TODO:DODOfdotodotad
 
@@ -96,11 +101,11 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-    override fun goToDetailsView(owner: String, repoName: String) {
+    override fun goToDetailsView(id:Int) {
         intent=Intent(this,DetailsActivity::class.java)
         //TODO CONSTANTS
-        intent.putExtra(ViewConstants.INTENT_OWNER,owner)
-        intent.putExtra(ViewConstants.INTENT_REPOSITORY_NAME,repoName)
+        intent.putExtra("id",id)
+        //intent.putExtra(ViewConstants.INTENT_REPOSITORY_NAME,repoName)
         startActivity(intent)
     }
 

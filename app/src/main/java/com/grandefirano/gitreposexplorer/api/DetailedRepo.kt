@@ -8,6 +8,6 @@ data class DetailedRepo(@Expose@SerializedName("id") val id:Int,
                         @Expose@SerializedName("owner")val owner:Owner,
                         @Expose@SerializedName("stargazers_count")val starsCount:Int) {
 
-    lateinit var contributors:List<Owner>
+
 
 }

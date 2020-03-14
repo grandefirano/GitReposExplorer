@@ -15,10 +15,27 @@ class ModelImpl:Model {
 
     //TYMCZASOWE
 
-
+    companion object{
+        var modelImpl:ModelImpl?=null
+        fun getInstance():ModelImpl{
+            if(modelImpl==null){
+                modelImpl=ModelImpl()
+            }
+            return modelImpl as ModelImpl
+        }
+    }
 
      var repos= MutableLiveData<List<Repo>>()
-    var actualRepo=MutableLiveData<DetailedRepo>()
+    var actualRepo=MutableLiveData<Repo>()
+
+
+    override fun setActualRepository(repo:Repo){
+
+        println("owner ModelImpl"+repo.name)
+        //Null?
+        actualRepo.value= repo
+
+    }
 
     override fun getRepositories(searchText: String) {
         ExplorerApplication.apiInterface.getRepositories(searchText).enqueue(object:
@@ -46,22 +63,23 @@ class ModelImpl:Model {
 
     override fun getDetails(ownerName: String, repoName: String) {
         //details
-        ExplorerApplication.apiInterface.getDetailedRepo(ownerName,repoName).enqueue(object :Callback<DetailedRepo>{
-            override fun onFailure(call: Call<DetailedRepo>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
+//        ExplorerApplication.apiInterface.getDetailedRepo(ownerName,repoName).enqueue(object :Callback<DetailedRepo>{
+//            override fun onFailure(call: Call<DetailedRepo>, t: Throwable) {
+//
+//            }
+//
+//            override fun onResponse(call: Call<DetailedRepo>, response: Response<DetailedRepo>) {
+//               if(response.isSuccessful){
+//                actualRepo.value=response.body()
+//               }
+//            }
+//
+//        })
 
-            override fun onResponse(call: Call<DetailedRepo>, response: Response<DetailedRepo>) {
-               if(response.isSuccessful){
-                actualRepo.value=response.body()
-               }
-            }
-
-        })
         //contributors
         ExplorerApplication.apiInterface.getContributors(ownerName,repoName).enqueue(object :Callback<List<Owner>>{
             override fun onFailure(call: Call<List<Owner>>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onResponse(call: Call<List<Owner>>, response: Response<List<Owner>>) {

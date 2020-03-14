@@ -23,7 +23,7 @@ class MainRecyclerViewAdapter(val context: Context,val viewModel: MainViewModel)
             DataBindingUtil.inflate<ItemMainListBinding>(layoutInflater, R.layout.item_main_list, parent, false)
 
 
-        var itemView=LayoutInflater.from(context).inflate(R.layout.item_main_list,parent,false)
+        //var itemView=LayoutInflater.from(context).inflate(R.layout.item_main_list,parent,false)
         return RepoHolder(binding)
     }
 

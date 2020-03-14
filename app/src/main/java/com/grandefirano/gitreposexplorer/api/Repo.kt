@@ -9,4 +9,6 @@ data class Repo (@SerializedName("id") val id:Int,
                  @SerializedName("stargazers_count")val starsCount:Int) {
 
 
+    lateinit var contributors:List<Owner>
+
 }

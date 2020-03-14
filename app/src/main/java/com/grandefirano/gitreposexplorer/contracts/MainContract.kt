@@ -11,7 +11,7 @@ interface MainContract {
         fun showWelcomeScreen()
         fun updateList(repositories:List<Repo>)
 
-        fun goToDetailsView(owner:String,repoName:String)
+        fun goToDetailsView(id:Int)
     }
 
     interface MainViewModel{
