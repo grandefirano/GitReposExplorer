@@ -20,9 +20,8 @@ class ExplorerApplication: Application() {
     }
 
     override fun onCreate() {
-        println("api inter")
+
         super.onCreate()
-        println("api inter")
         val retrofit= Retrofit.Builder()
             .baseUrl(ApiConstants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

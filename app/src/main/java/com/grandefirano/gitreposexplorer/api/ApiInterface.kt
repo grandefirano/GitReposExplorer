@@ -1,6 +1,5 @@
 package com.grandefirano.gitreposexplorer.api
 
-import com.grandefirano.gitreposexplorer.api.ApiConstants.GET_DETAILED_REPO
 import com.grandefirano.gitreposexplorer.api.ApiConstants.GET_REPOS
 import com.grandefirano.gitreposexplorer.api.ApiConstants.GET_REPO_CONTRIBUTORS
 import retrofit2.Call
@@ -12,10 +11,6 @@ interface ApiInterface {
 
     @GET(GET_REPOS)
     fun getRepositories(@Query("q")q:String): Call<RepoSearchResult>
-
-    @GET(GET_DETAILED_REPO)
-    fun getDetailedRepo(@Path("owner") ownerName:String,
-                        @Path("repo")repoName:String):Call<DetailedRepo>
 
     @GET(GET_REPO_CONTRIBUTORS)
     fun getContributors(@Path("owner")ownerName: String,
