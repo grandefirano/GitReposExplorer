@@ -34,6 +34,7 @@
                     android:layout_height="90dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="30dp"
+                    app:imageUrl="@{viewModel.actualRepo.owner.avatar}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:src="@drawable/default_photo"
@@ -60,7 +61,8 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="5dp"
                     android:textSize="16sp"
-                    android:text="JAVA"
+                    tools:text="JAVA"
+                    android:text="@{viewModel.actualRepo.language}"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toBottomOf="@+id/repoInDetailTextView" />
 
@@ -70,7 +72,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="5dp"
-                    android:text="grandefirano"
+                    tools:text="grandefirano"
+                    android:text="@{viewModel.actualRepo.owner.login}"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toBottomOf="@+id/languageTextView" />
                 <TextView
@@ -79,7 +82,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="5dp"
-                    android:text="last update: 12/03/2019"
+                    tools:text="last update: 12/03/2019"
+                    android:text="@{viewModel.actualRepo.updatedAt}"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toBottomOf="@+id/ownerInDetailTextView" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -109,7 +113,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="100"
+                tools:text="100"
+                android:text="@{String.valueOf(viewModel.actualRepo.watchersCount)}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <ImageView
@@ -127,7 +132,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="100"
+                tools:text="100"
+                android:text="@{String.valueOf(viewModel.actualRepo.starsCount)}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -147,7 +153,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="100"
+                tools:text="100"
+                android:text="@{String.valueOf(viewModel.actualRepo.forksCount)}"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="99dp" />
 
@@ -168,7 +175,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="100"
+                tools:text="100"
+                android:text="LATTTER"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="212dp" />
 
@@ -210,7 +218,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginTop="5dp"
-                    android:text="TextView"
+                    tools:text="@string/lorem_ipsum"
+                    android:text="@{viewModel.actualRepo.description}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/descriptionTitleTextView" />
@@ -243,10 +252,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginTop="5dp"
-                    android:text="TextView"
+                    android:text="@{viewModel.actualRepo.repositoryUrl}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/websiteTitleTextView" />
+                    app:layout_constraintTop_toBottomOf="@+id/websiteTitleTextView"
+                    tools:text="@string/sample_website" />
 
 
 

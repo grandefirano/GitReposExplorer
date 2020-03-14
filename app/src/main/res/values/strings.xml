@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Repos Explorer</string>
+    <string name="lorem_ipsum">Praesent massa nisl, dictum fringilla ex ac, condimentum volutpat magna. Suspendisse malesuada turpis est, ut porttitor ipsum rhoncus eu. Curabitur tempus bibendum ornare. In vehicula, nisi quis elementum mattis, augue arcu gravida magna, et accumsan elit nibh quis nisi. Praesent sit amet ipsum nec turpis malesuada cursus.</string>
+    <string name="sample_website">https://github.community/t5/GitHub-API-Development-and/API-Github-list-contributors/td-p/9631</string>
 </resources>

@@ -48,7 +48,7 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
         println("owner detailActiv "+detailsViewModel.actualRepo.value.toString())
         detailsViewModel.actualRepo.observe(this, Observer {
             println("owner detailActiv "+it.name)
-            println("owner detailActiv "+it.contributors[0].login)
+           // println("owner detailActiv "+it.contributors[0]?.login)
         })
 
         binding.lifecycleOwner = this
