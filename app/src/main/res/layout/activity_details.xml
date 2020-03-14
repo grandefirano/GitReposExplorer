@@ -83,7 +83,7 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="5dp"
                     tools:text="last update: 12/03/2019"
-                    android:text="@{viewModel.actualRepo.updatedAt}"
+                    app:textDateFormat="@{viewModel.actualRepo.updatedAt}"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toBottomOf="@+id/ownerInDetailTextView" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -210,14 +210,17 @@
                     android:layout_marginTop="25dp"
                     android:text="Description"
                     android:gravity="center"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/descriptionTextView"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:gravity="center"
+                    android:textSize="16sp"
                     tools:text="@string/lorem_ipsum"
                     android:text="@{viewModel.actualRepo.description}"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -241,8 +244,9 @@
                     android:id="@+id/websiteTitleTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="15dp"
                     android:text="Website"
+                    android:textSize="16sp"
                     android:gravity="center"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -250,9 +254,12 @@
                 <TextView
                     android:id="@+id/websiteTextView"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="15dp"
                     android:text="@{viewModel.actualRepo.repositoryUrl}"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorHyperLink"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/websiteTitleTextView"
@@ -276,9 +283,10 @@
                     android:id="@+id/contributorsTitleTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="15dp"
                     android:text="Contributors"
                     android:gravity="center"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
