@@ -11,6 +11,7 @@ interface ApiInterface {
 
     @GET(GET_REPOS)
     fun getRepositories(@Query("q")q:String,
+                        @Query("sort") sort: String,
                         @Query("page") page: Int,
                         @Query("per_page")perPage:Int): Call<RepoSearchResult>
 

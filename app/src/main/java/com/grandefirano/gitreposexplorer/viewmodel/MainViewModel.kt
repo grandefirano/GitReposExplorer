@@ -12,12 +12,13 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
     var actualSearchText:String=""
     var actualPage:Int=1
 
+
     override fun onQueryChange(searchText: String) {
         actualPage=1
         actualSearchText=searchText
         if(searchText!=null&& searchText!="") {
             //TODO ZMIENIC
-            model.getRepositories(searchText,"s","s",1)
+            model.getRepositories(searchText,"","s",1)
             view.showList()
         }
         else onViewInit()
@@ -46,7 +47,7 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
             ==totalItemCount-1
             &&totalItemCount>= ApiConstants.SIZE_OF_PAGE*actualPage) {
             actualPage++
-            model.getRepositories(actualSearchText, "s", "s", actualPage)
+            model.getRepositories(actualSearchText, "", "s", actualPage)
         }
         println("dddd $actualPage")
 
