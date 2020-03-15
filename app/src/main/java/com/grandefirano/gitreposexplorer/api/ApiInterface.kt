@@ -11,7 +11,8 @@ interface ApiInterface {
 
     @GET(GET_REPOS)
     fun getRepositories(@Query("q")q:String,
-                        @Query("page") page: Int): Call<RepoSearchResult>
+                        @Query("page") page: Int,
+                        @Query("per_page")perPage:Int): Call<RepoSearchResult>
 
     @GET(GET_REPO_CONTRIBUTORS)
     fun getContributors(@Path("owner")ownerName: String,

@@ -44,10 +44,21 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
 
     override fun loadMoreItems() {
         println("dddd na dole")
-        actualPage++
-        println("dd $actualPage")
-        model.getRepositories(actualSearchText,"s","s",actualPage)
 
+            actualPage++
+            println("dd $actualPage")
+            model.getRepositories(actualSearchText, "s", "s", actualPage)
+
+
+    }
+
+    override fun onNoItemInList(b: Boolean) {
+        if(b&& actualSearchText.isNotEmpty()){
+            println("ddd show $actualSearchText")
+            view.showNoResults(actualSearchText)
+        }else{
+            view.hideNoResult()
+        }
     }
 
 

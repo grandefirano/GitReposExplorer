@@ -2,6 +2,7 @@ package com.grandefirano.gitreposexplorer.model
 
 import androidx.lifecycle.MutableLiveData
 import com.grandefirano.gitreposexplorer.ExplorerApplication
+import com.grandefirano.gitreposexplorer.api.ApiConstants.SIZE_OF_PAGE
 import com.grandefirano.gitreposexplorer.api.DetailedRepo
 import com.grandefirano.gitreposexplorer.api.Owner
 import com.grandefirano.gitreposexplorer.api.Repo
@@ -40,17 +41,21 @@ class ModelImpl:Model {
 
 
     override fun getRepositories(searchText: String,sortBy:String,order:String,page:Int) {
-        ExplorerApplication.apiInterface.getRepositories(searchText,page).enqueue(object:
+        println("ddddd Model getRepo $searchText $page")
+        ExplorerApplication.apiInterface.getRepositories(searchText,page,SIZE_OF_PAGE).enqueue(object:
             Callback<RepoSearchResult>{
             override fun onFailure(call: Call<RepoSearchResult>, t: Throwable) {
 
             }
 
+
             override fun onResponse(
                 call: Call<RepoSearchResult>,
                 response: Response<RepoSearchResult>
             ) {
-                if(response.isSuccessful&& response.body()?.repositories!=null){
+                println("ddd model if succes: ${response.isSuccessful} ${response.errorBody()?.string()} GGG ${response.body()} on response")
+                if( response.body()?.repositories!=null){
+                    println("ddd model success on response")
                     var newArray= response.body()!!.repositories
                     if(page==1) {
                         this@ModelImpl.repos.value = newArray
@@ -62,6 +67,7 @@ class ModelImpl:Model {
 
                 }else{
                     this@ModelImpl.repos.value= listOf()
+                    println("ddd model else on response")
                 }
             }
         })
@@ -72,19 +78,6 @@ class ModelImpl:Model {
     }
 
     override fun getDetails(ownerName: String, repoName: String) {
-        //details
-//        ExplorerApplication.apiInterface.getDetailedRepo(ownerName,repoName).enqueue(object :Callback<DetailedRepo>{
-//            override fun onFailure(call: Call<DetailedRepo>, t: Throwable) {
-//
-//            }
-//
-//            override fun onResponse(call: Call<DetailedRepo>, response: Response<DetailedRepo>) {
-//               if(response.isSuccessful){
-//                actualRepo.value=response.body()
-//               }
-//            }
-//
-//        })
 
         //contributors
         ExplorerApplication.apiInterface.getContributors(ownerName,repoName).enqueue(object :Callback<List<Owner>>{

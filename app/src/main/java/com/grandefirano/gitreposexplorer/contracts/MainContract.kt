@@ -12,6 +12,8 @@ interface MainContract {
         fun updateList(repositories:List<Repo>)
 
         fun goToDetailsView()
+        fun showNoResults(searchText: String)
+        fun hideNoResult()
     }
 
     interface MainViewModel{
@@ -20,5 +22,6 @@ interface MainContract {
         fun onSortByClicked()
         fun onRepoClicked(repo:Repo)
         fun loadMoreItems()
+        fun onNoItemInList(b: Boolean)
     }
 }

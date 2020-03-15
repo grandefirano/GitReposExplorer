@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
+import com.grandefirano.gitreposexplorer.api.ApiConstants
 import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.contracts.MainContract
 import com.grandefirano.gitreposexplorer.model.ModelImpl
@@ -49,17 +50,21 @@ class MainActivity : AppCompatActivity(),
                 super.onScrolled(recyclerView, dx, dy)
                 val linearLayoutManager=recyclerView.layoutManager as LinearLayoutManager
                 totalItemCount=layoutManager.itemCount
+
+                println("dddd ${layoutManager.findFirstVisibleItemPosition()}")
+
                 if (linearLayoutManager != null &&
                     linearLayoutManager.findLastCompletelyVisibleItemPosition()
-                    ==totalItemCount-1){
+                    ==totalItemCount-1
+                    &&totalItemCount>=ApiConstants.SIZE_OF_PAGE){
+                    println("lastvisible pos${linearLayoutManager.findLastVisibleItemPosition() }")
+                    println(" tot count ${totalItemCount }")
+
+
                     mainViewModel.loadMoreItems()
                 }
             }
         })
-//        if(llm.findLastCompletelyVisibleItemPosition() == data.length() -1){
-//            //bottom of list!
-//            loadMoreData();
-//        }
 
         adapter=MainRecyclerViewAdapter(mainViewModel)
         repoRecyclerView.adapter=adapter
@@ -67,6 +72,8 @@ class MainActivity : AppCompatActivity(),
 
 
         mainViewModel.filteredRepositories.observe(this, Observer {
+            println("ddd list ${it.isEmpty()}")
+//            mainViewModel.onNoItemInList(it.isEmpty())
             adapter.submitList(it)
 //            totalItemCount=layoutManager.itemCount
 //            adapter.notifyDataSetChanged()
@@ -87,6 +94,7 @@ class MainActivity : AppCompatActivity(),
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
+                println("onqerychangd $newText")
                 mainViewModel.onQueryChange(newText)
                 return false
             }
@@ -96,8 +104,6 @@ class MainActivity : AppCompatActivity(),
             searchItem.expandActionView()
             searchView.requestFocus()
         }
-
-
         return true
     }
 
@@ -121,6 +127,15 @@ class MainActivity : AppCompatActivity(),
         intent=Intent(this,DetailsActivity::class.java)
         startActivity(intent)
     }
+
+    override fun showNoResults(searchText: String) {
+        noResultsLayout.visibility=View.VISIBLE
+    }
+
+    override fun hideNoResult() {
+        noResultsLayout.visibility=View.GONE
+    }
+
 
 
 }

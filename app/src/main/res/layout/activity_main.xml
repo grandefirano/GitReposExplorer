@@ -13,6 +13,12 @@
         android:visibility="gone"
         tools:visibility="visible"/>
 
+    <include
+        android:id="@+id/noResultsLayout"
+        layout="@layout/fragment_no_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
     <RelativeLayout
         android:id="@+id/welcomeLayout"
         android:layout_gravity="center"
@@ -55,4 +61,6 @@
             android:text="Search For Repo"
             android:textColor="@color/colorTextSecondary" />
     </RelativeLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
