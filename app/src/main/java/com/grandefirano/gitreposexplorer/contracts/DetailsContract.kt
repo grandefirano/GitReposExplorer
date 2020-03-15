@@ -8,9 +8,10 @@ interface DetailsContract {
         fun updateDetails()
 
         fun goToMain()
+        fun goToWebsite(website: String)
     }
     interface DetailsViewModel{
-        fun onWebsiteClick()
-        fun onInitView()
+        fun onWebsiteClick(website:String)
+        fun onInitView(repo:Repo)
     }
 }

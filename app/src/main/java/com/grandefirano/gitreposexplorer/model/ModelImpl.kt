@@ -77,8 +77,10 @@ class ModelImpl:Model {
         TODO("Not yet implemented")
     }
 
-    override fun getDetails(ownerName: String, repoName: String) {
+    override fun getContributors(repo:Repo) {
 
+        var repoName=repo.name
+        var ownerName=repo.owner.login
         //contributors
         ExplorerApplication.apiInterface.getContributors(ownerName,repoName).enqueue(object :Callback<List<Owner>>{
             override fun onFailure(call: Call<List<Owner>>, t: Throwable) {
@@ -86,10 +88,18 @@ class ModelImpl:Model {
             }
 
             override fun onResponse(call: Call<List<Owner>>, response: Response<List<Owner>>) {
+                println("ddd model if succes: ${response.isSuccessful} ${response.errorBody()?.string()} GGG ${response.body()} on response")
                 println("ddd contrib}")
                 if(response.isSuccessful){
-                    println("ddd contrib ${response.body()}")
-                    //actualRepo.value?.contributors= response.body()!!
+                    //println("ddd contrib ${response.body()}")
+                    var listOfContributors=response.body()
+                    if(listOfContributors!=null) {
+                        repo.contributors=listOfContributors
+                        repo.contributorsCount=listOfContributors.size
+                        actualRepo.value=repo
+                        println("dddd ${actualRepo.value?.contributors}")
+                        println("dddd ${actualRepo.value?.contributorsCount}")
+                    }
 
                 }
             }

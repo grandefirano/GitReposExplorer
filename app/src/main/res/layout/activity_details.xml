@@ -190,7 +190,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 tools:text="100"
-                android:text="LATTTER"
+                android:text="@{String.valueOf(viewModel.actualRepo.contributorsCount)}"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="212dp" />
 
@@ -271,6 +271,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="15dp"
+                    android:onClick="@{()->viewModel.onWebsiteClick(viewModel.actualRepo.repositoryUrl)}"
                     android:text="@{viewModel.actualRepo.repositoryUrl}"
                     android:textSize="16sp"
                     android:textColor="@color/colorHyperLink"

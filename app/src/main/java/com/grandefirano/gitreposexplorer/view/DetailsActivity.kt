@@ -1,6 +1,8 @@
 package com.grandefirano.gitreposexplorer.view
 
+import android.content.Intent
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -39,12 +41,14 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
 
 
         binding.viewModel=detailsViewModel
-        detailsViewModel.onInitView()
 
-//        detailsViewModel.actualRepo.observe(this, Observer {
-//            println("owner detailActiv "+it.name)
-//           // println("owner detailActiv "+it.contributors[0]?.login)
-//        })
+        binding.executePendingBindings()
+        detailsViewModel.actualRepo.observe(this, Observer {
+            detailsViewModel.onInitView(it)
+            println("dddd owner detailActiv name "+it.name)
+            println("dddd owner detailActiv contri"+it.contributors)
+
+        })
 
         binding.lifecycleOwner = this
 
@@ -63,6 +67,11 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
 
     override fun goToMain() {
         finish()
+    }
+
+    override fun goToWebsite(website: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(website))
+        startActivity(browserIntent)
     }
 
 }

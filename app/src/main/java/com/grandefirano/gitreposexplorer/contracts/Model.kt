@@ -6,7 +6,7 @@ interface Model {
 
     fun getRepositories(searchText: String,sortBy:String,order:String,page:Int)
     fun getTrending()
-    fun getDetails(ownerName:String,repoName:String)
+    fun getContributors(repo:Repo)
     fun downloadPhoto(url:String)
     fun setActualRepository(repo:Repo)
     fun getColorOfLanguage(language:String)
