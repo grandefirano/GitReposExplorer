@@ -43,23 +43,25 @@ class ModelImpl:Model {
         ExplorerApplication.apiInterface.getRepositories(searchText,page).enqueue(object:
             Callback<RepoSearchResult>{
             override fun onFailure(call: Call<RepoSearchResult>, t: Throwable) {
-                //TODO("Not yet implemented")
+
             }
 
             override fun onResponse(
                 call: Call<RepoSearchResult>,
                 response: Response<RepoSearchResult>
             ) {
-                if(response.isSuccessful){
+                if(response.isSuccessful&& response.body()?.repositories!=null){
+                    var newArray= response.body()!!.repositories
                     if(page==1) {
-                        this@ModelImpl.repos.value = response.body()!!.repositories
+                        this@ModelImpl.repos.value = newArray
                         println("ddd inside new")
                     }else{
-                        var newArray= response.body()!!.repositories
                         repos.value = repos.value?.plus(newArray)
 
                     }
 
+                }else{
+                    this@ModelImpl.repos.value= listOf()
                 }
             }
         })
