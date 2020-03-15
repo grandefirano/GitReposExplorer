@@ -56,7 +56,7 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.home->onBackPressed()
+            android.R.id.home->onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
