@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -59,17 +61,33 @@ class MainActivity : AppCompatActivity(),
         repoRecyclerView.adapter=adapter
 
 
-        val paths =
-            arrayOf("Best match", "Most stars","Fewest stars","Most forks","Fewest forks","Latest updates","Oldest updates")
+        val titlesOfSpinner = resources.getStringArray(R.array.sort_by_list_title)
+        val valuesOfSpinner = resources.getStringArray(R.array.sort_by_list_value)
 
         val adapter2: ArrayAdapter<String> = ArrayAdapter<String>(
             applicationContext,
             R.layout.item_checked_spinner,
-            paths
+            titlesOfSpinner
         )
         adapter2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         spinner.adapter = adapter2
-//        spinner.setOnItemSelectedListener(this)
+        spinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View,
+                position: Int,
+                id: Long
+            ) {
+
+                mainViewModel.sortListBy=valuesOfSpinner[position]
+                mainViewModel.onQueryChange()
+            }
+
+        }
 
         mainViewModel.filteredRepositories.observe(this, Observer {
 
@@ -95,7 +113,8 @@ class MainActivity : AppCompatActivity(),
 
             override fun onQueryTextChange(newText: String): Boolean {
                 println("onqerychangd $newText")
-                mainViewModel.onQueryChange(newText)
+                mainViewModel.actualSearchText=newText
+                mainViewModel.onQueryChange()
                 return false
             }
         })

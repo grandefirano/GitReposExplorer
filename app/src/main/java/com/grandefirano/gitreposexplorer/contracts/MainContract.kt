@@ -17,11 +17,15 @@ interface MainContract {
     }
 
     interface MainViewModel{
-        fun onQueryChange(searchText:String)
+        var sortListBy:String
+        var actualSearchText:String
+
+        fun onQueryChange()
         fun onViewInit()
         fun onSortByClicked()
         fun onRepoClicked(repo:Repo)
         fun loadMoreItems(totalItemCount:Int,lastVisiblePos:Int)
         fun onNoItemInList(b: Boolean)
+
     }
 }

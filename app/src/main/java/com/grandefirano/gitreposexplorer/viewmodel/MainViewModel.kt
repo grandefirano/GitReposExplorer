@@ -9,16 +9,17 @@ import com.grandefirano.gitreposexplorer.model.ModelImpl
 class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainContract.MainViewModel {
 
     var filteredRepositories:LiveData<List<Repo>> = model.repos
-    var actualSearchText:String=""
+    override var actualSearchText:String=""
     var actualPage:Int=1
+    override var sortListBy:String=""
 
 
-    override fun onQueryChange(searchText: String) {
+    override fun onQueryChange() {
         actualPage=1
-        actualSearchText=searchText
-        if(searchText!=null&& searchText!="") {
+
+        if(actualSearchText!=null&& actualSearchText!="") {
             //TODO ZMIENIC
-            model.getRepositories(searchText,"","s",1)
+            model.getRepositories(actualSearchText,sortListBy,1)
             view.showList()
         }
         else onViewInit()
@@ -47,7 +48,7 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
             ==totalItemCount-1
             &&totalItemCount>= ApiConstants.SIZE_OF_PAGE*actualPage) {
             actualPage++
-            model.getRepositories(actualSearchText, "", "s", actualPage)
+            model.getRepositories(actualSearchText, sortListBy, actualPage)
         }
         println("dddd $actualPage")
 

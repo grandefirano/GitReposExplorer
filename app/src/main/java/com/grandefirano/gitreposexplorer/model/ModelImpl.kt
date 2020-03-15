@@ -40,7 +40,7 @@ class ModelImpl:Model {
 
 
 
-    override fun getRepositories(searchText: String,sortBy:String,order:String,page:Int) {
+    override fun getRepositories(searchText: String,sortBy:String,page:Int) {
         println("ddddd Model getRepo $searchText $page")
         ExplorerApplication.apiInterface.getRepositories(searchText,sortBy,page,SIZE_OF_PAGE).enqueue(object:
             Callback<RepoSearchResult>{
