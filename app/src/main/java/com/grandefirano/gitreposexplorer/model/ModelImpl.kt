@@ -28,6 +28,7 @@ class ModelImpl:Model {
 
      var repos= MutableLiveData<List<Repo>>()
     var actualRepo=MutableLiveData<Repo>()
+    var isServerLimitExceeded=MutableLiveData<Boolean>()
 
 
     override fun setActualRepository(repo:Repo){
@@ -69,6 +70,8 @@ class ModelImpl:Model {
                     this@ModelImpl.repos.value= listOf()
                     println("ddd model else on response")
                 }
+                isServerLimitExceeded.postValue(response.errorBody()?.string()?.startsWith("{\"message\":\"API rate limit exceeded for"))
+
             }
         })
     }
@@ -90,8 +93,10 @@ class ModelImpl:Model {
             override fun onResponse(call: Call<List<Owner>>, response: Response<List<Owner>>) {
                 println("ddd model if succes: ${response.isSuccessful} ${response.errorBody()?.string()} GGG ${response.body()} on response")
                 println("ddd contrib}")
-                if(response.isSuccessful){
+                    
                     //println("ddd contrib ${response.body()}")
+                if(response.isSuccessful){
+
                     var listOfContributors=response.body()
                     if(listOfContributors!=null) {
                         repo.contributors=listOfContributors
@@ -100,8 +105,9 @@ class ModelImpl:Model {
                         println("dddd ${actualRepo.value?.contributors}")
                         println("dddd ${actualRepo.value?.contributorsCount}")
                     }
-
                 }
+                isServerLimitExceeded.postValue(response.errorBody()?.string()?.startsWith("{\"message\":\"API rate limit exceeded for"))
+
             }
 
         })

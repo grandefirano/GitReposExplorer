@@ -6,7 +6,7 @@ interface DetailsContract {
     interface DetailsView{
 
         fun updateDetails()
-
+        fun showServerError()
         fun goToMain()
         fun goToWebsite(website: String)
     }

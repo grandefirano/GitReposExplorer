@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
 import com.grandefirano.gitreposexplorer.api.Repo
@@ -21,6 +22,7 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
     lateinit var binding:ActivityDetailsBinding
 
     var repo: Repo?=null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +52,11 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
 
         })
 
+        detailsViewModel.actualRepo.observe(this, Observer {
+            println("ddddd actual show errr")
+            showServerError()
+        })
+
         binding.lifecycleOwner = this
 
     }
@@ -63,6 +70,10 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
 
     override fun updateDetails() {
         //TODO("Not yet implemented")
+    }
+
+    override fun showServerError() {
+        Snackbar.make(scrollView,"Server request limit is exceeded",Snackbar.LENGTH_SHORT).show()
     }
 
     override fun goToMain() {

@@ -10,6 +10,7 @@
 
     </data>
 <ScrollView
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -190,6 +191,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 tools:text="100"
+
                 android:text="@{String.valueOf(viewModel.actualRepo.contributorsCount)}"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="212dp" />

@@ -12,6 +12,7 @@ class DetailsViewModel(val view: DetailsContract.DetailsView,
                        val model: ModelImpl):DetailsContract.DetailsViewModel {
 
     var actualRepo=model.actualRepo
+    var isServerLimitExceeded=model.isServerLimitExceeded
 
     override fun onWebsiteClick(website:String) {
         view.goToWebsite(website)

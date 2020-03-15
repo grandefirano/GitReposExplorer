@@ -25,6 +25,7 @@ fun bindAdapterPhoto(imageView: ImageView, imageUrl: String) {
         Picasso.with(imageView.context).load(imageUrl).into(imageView)
     }
 }
+
 @BindingAdapter("textDateFormat")
 fun bindAdapterDateText(textView: TextView,date:String){
     if(date!=null){
