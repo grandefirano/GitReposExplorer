@@ -86,8 +86,10 @@ class ModelImpl:Model {
             }
 
             override fun onResponse(call: Call<List<Owner>>, response: Response<List<Owner>>) {
+                println("ddd contrib}")
                 if(response.isSuccessful){
-                    actualRepo.value?.contributors= response.body()!!
+                    println("ddd contrib ${response.body()}")
+                    //actualRepo.value?.contributors= response.body()!!
 
                 }
             }

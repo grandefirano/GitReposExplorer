@@ -14,8 +14,6 @@ import com.grandefirano.gitreposexplorer.viewmodel.MainViewModel
 class MainRecyclerViewAdapter(val viewModel: MainViewModel) :
     ListAdapter<Repo, MainRecyclerViewAdapter.RepoHolder>(DIFF_CALBACK) {
 
-    //var repos= listOf<Repo>()
-
     companion object{
     val DIFF_CALBACK: DiffUtil.ItemCallback<Repo> = object : DiffUtil.ItemCallback<Repo>() {
         override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
@@ -28,7 +26,6 @@ class MainRecyclerViewAdapter(val viewModel: MainViewModel) :
                    && oldItem.owner.login==oldItem.owner.login
                    && oldItem.updatedAt==newItem.updatedAt
         }
-
     }
 }
 
@@ -47,13 +44,8 @@ override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoHolder {
         )
 
 
-    //var itemView=LayoutInflater.from(context).inflate(R.layout.item_main_list,parent,false)
     return RepoHolder(binding)
 }
-//
-//override fun getItemCount(): Int {
-//    return repos.size
-//}
 
 override fun onBindViewHolder(holder: RepoHolder, position: Int) {
 
@@ -64,7 +56,7 @@ override fun onBindViewHolder(holder: RepoHolder, position: Int) {
 class RepoHolder(val binding: ItemMainListBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(viewModel: MainViewModel, repo:Repo) {
 
-        //binding.position = position
+
         binding.viewModel = viewModel
         binding.repo=repo
         binding.executePendingBindings()

@@ -48,14 +48,9 @@ class MainActivity : AppCompatActivity(),
         repoRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-               // val linearLayoutManager=recyclerView.layoutManager as LinearLayoutManager
-                totalItemCount=layoutManager.itemCount
-                var lastVisiblePos=layoutManager.findLastCompletelyVisibleItemPosition()
-
-                    println("lastvisible pos${lastVisiblePos }")
-                    println(" tot count ${totalItemCount }")
-
-
+                 totalItemCount=layoutManager.itemCount
+                var lastVisiblePos=
+                    layoutManager.findLastCompletelyVisibleItemPosition()
                     mainViewModel.loadMoreItems(totalItemCount,lastVisiblePos)
                 }
 
@@ -67,11 +62,10 @@ class MainActivity : AppCompatActivity(),
 
 
         mainViewModel.filteredRepositories.observe(this, Observer {
+
             println("ddd list ${it.isEmpty()}")
-//            mainViewModel.onNoItemInList(it.isEmpty())
             adapter.submitList(it)
-//            totalItemCount=layoutManager.itemCount
-//            adapter.notifyDataSetChanged()
+
 
         })
     }
