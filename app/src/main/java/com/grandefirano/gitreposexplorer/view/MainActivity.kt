@@ -4,21 +4,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.databinding.adapters.SearchViewBindingAdapter.setOnQueryTextListener
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
-import com.grandefirano.gitreposexplorer.api.ApiConstants
 import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.contracts.MainContract
-import com.grandefirano.gitreposexplorer.model.ModelImpl
 import com.grandefirano.gitreposexplorer.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity(),
     MainContract.MainView {
@@ -30,6 +28,7 @@ class MainActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
 
 
@@ -60,6 +59,17 @@ class MainActivity : AppCompatActivity(),
         repoRecyclerView.adapter=adapter
 
 
+        val paths =
+            arrayOf("Filter by Name", "Filter by ColorLike")
+
+        val adapter2: ArrayAdapter<String> = ArrayAdapter<String>(
+            applicationContext,
+            R.layout.item_spinner,
+            paths
+        )
+        adapter2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        spinner.adapter = adapter2
+//        spinner.setOnItemSelectedListener(this)
 
         mainViewModel.filteredRepositories.observe(this, Observer {
 
@@ -69,6 +79,7 @@ class MainActivity : AppCompatActivity(),
 
         })
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater=menuInflater
