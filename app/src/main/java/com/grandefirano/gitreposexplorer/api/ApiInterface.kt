@@ -10,7 +10,8 @@ import retrofit2.http.Query
 interface ApiInterface {
 
     @GET(GET_REPOS)
-    fun getRepositories(@Query("q")q:String): Call<RepoSearchResult>
+    fun getRepositories(@Query("q")q:String,
+                        @Query("page") page: Int): Call<RepoSearchResult>
 
     @GET(GET_REPO_CONTRIBUTORS)
     fun getContributors(@Path("owner")ownerName: String,

@@ -40,7 +40,7 @@ class ModelImpl:Model {
 
 
     override fun getRepositories(searchText: String,sortBy:String,order:String,page:Int) {
-        ExplorerApplication.apiInterface.getRepositories(searchText).enqueue(object:
+        ExplorerApplication.apiInterface.getRepositories(searchText,page).enqueue(object:
             Callback<RepoSearchResult>{
             override fun onFailure(call: Call<RepoSearchResult>, t: Throwable) {
                 //TODO("Not yet implemented")
@@ -53,9 +53,11 @@ class ModelImpl:Model {
                 if(response.isSuccessful){
                     if(page==1) {
                         this@ModelImpl.repos.value = response.body()!!.repositories
+                        println("ddd inside new")
                     }else{
                         var newArray= response.body()!!.repositories
                         repos.value = repos.value?.plus(newArray)
+
                     }
 
                 }
