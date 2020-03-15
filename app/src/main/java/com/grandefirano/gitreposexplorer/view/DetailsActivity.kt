@@ -45,16 +45,22 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
         binding.viewModel=detailsViewModel
 
         binding.executePendingBindings()
+        detailsViewModel.isServerLimitExceeded.value=false
         detailsViewModel.actualRepo.observe(this, Observer {
+            if(it.contributors.isNullOrEmpty())
             detailsViewModel.onInitView(it)
+
             println("dddd owner detailActiv name "+it.name)
             println("dddd owner detailActiv contri"+it.contributors)
 
         })
 
-        detailsViewModel.actualRepo.observe(this, Observer {
-            println("ddddd actual show errr")
-            showServerError()
+        detailsViewModel.isServerLimitExceeded.observe(this, Observer {
+
+            it?.let {
+                if(it) showServerError()
+            }
+
         })
 
         binding.lifecycleOwner = this

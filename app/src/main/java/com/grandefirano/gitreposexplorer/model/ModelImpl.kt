@@ -28,8 +28,7 @@ class ModelImpl:Model {
 
      var repos= MutableLiveData<List<Repo>>()
     var actualRepo=MutableLiveData<Repo>()
-    var isServerLimitExceeded=MutableLiveData<Boolean>()
-
+    var isServerLimitExceeded=MutableLiveData<Boolean>(false)
 
     override fun setActualRepository(repo:Repo){
 

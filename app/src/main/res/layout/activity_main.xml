@@ -9,9 +9,11 @@
     <RelativeLayout
         android:gravity="end"
         android:elevation="2dp"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:orientation="horizontal"
         android:background="@color/colorSecondary"
-        android:id="@+id/linearLayout"
+        android:id="@+id/toolbarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +46,7 @@
         android:layout_height="0dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarLayout"
         tools:visibility="visible" />
 
     <include

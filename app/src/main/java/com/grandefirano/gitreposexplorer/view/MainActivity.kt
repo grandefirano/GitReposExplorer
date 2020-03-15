@@ -60,11 +60,11 @@ class MainActivity : AppCompatActivity(),
 
 
         val paths =
-            arrayOf("Filter by Name", "Filter by ColorLike")
+            arrayOf("Best match", "Most stars","Fewest stars","Most forks","Fewest forks","Latest updates","Oldest updates")
 
         val adapter2: ArrayAdapter<String> = ArrayAdapter<String>(
             applicationContext,
-            R.layout.item_spinner,
+            R.layout.item_checked_spinner,
             paths
         )
         adapter2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
@@ -109,10 +109,12 @@ class MainActivity : AppCompatActivity(),
 
     override fun showList() {
         repoRecyclerView.visibility= View.VISIBLE
+        toolbarLayout.visibility=View.VISIBLE
         welcomeLayout.visibility=View.GONE
     }
 
     override fun showWelcomeScreen() {
+        toolbarLayout.visibility=View.GONE
         repoRecyclerView.visibility=View.GONE
         welcomeLayout.visibility=View.VISIBLE
     }
