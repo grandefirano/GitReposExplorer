@@ -39,7 +39,7 @@ class ModelImpl:Model {
 
 
 
-    override fun getRepositories(searchText: String) {
+    override fun getRepositories(searchText: String,sortBy:String,order:String,page:Int) {
         ExplorerApplication.apiInterface.getRepositories(searchText).enqueue(object:
             Callback<RepoSearchResult>{
             override fun onFailure(call: Call<RepoSearchResult>, t: Throwable) {
@@ -51,8 +51,12 @@ class ModelImpl:Model {
                 response: Response<RepoSearchResult>
             ) {
                 if(response.isSuccessful){
-
-                    this@ModelImpl.repos.value=response.body()!!.repositories
+                    if(page==1) {
+                        this@ModelImpl.repos.value = response.body()!!.repositories
+                    }else{
+                        var newArray= response.body()!!.repositories
+                        repos.value = repos.value?.plus(newArray)
+                    }
 
                 }
             }

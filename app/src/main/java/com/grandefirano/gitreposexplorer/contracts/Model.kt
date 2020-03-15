@@ -4,7 +4,7 @@ import com.grandefirano.gitreposexplorer.api.Repo
 
 interface Model {
 
-    fun getRepositories(searchText:String)
+    fun getRepositories(searchText: String,sortBy:String,order:String,page:Int)
     fun getTrending()
     fun getDetails(ownerName:String,repoName:String)
     fun downloadPhoto(url:String)
