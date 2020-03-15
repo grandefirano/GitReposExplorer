@@ -48,22 +48,17 @@ class MainActivity : AppCompatActivity(),
         repoRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val linearLayoutManager=recyclerView.layoutManager as LinearLayoutManager
+               // val linearLayoutManager=recyclerView.layoutManager as LinearLayoutManager
                 totalItemCount=layoutManager.itemCount
+                var lastVisiblePos=layoutManager.findLastCompletelyVisibleItemPosition()
 
-                println("dddd ${layoutManager.findFirstVisibleItemPosition()}")
-
-                if (linearLayoutManager != null &&
-                    linearLayoutManager.findLastCompletelyVisibleItemPosition()
-                    ==totalItemCount-1
-                    &&totalItemCount>=ApiConstants.SIZE_OF_PAGE){
-                    println("lastvisible pos${linearLayoutManager.findLastVisibleItemPosition() }")
+                    println("lastvisible pos${lastVisiblePos }")
                     println(" tot count ${totalItemCount }")
 
 
-                    mainViewModel.loadMoreItems()
+                    mainViewModel.loadMoreItems(totalItemCount,lastVisiblePos)
                 }
-            }
+
         })
 
         adapter=MainRecyclerViewAdapter(mainViewModel)

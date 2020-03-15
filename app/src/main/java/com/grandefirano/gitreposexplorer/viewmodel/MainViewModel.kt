@@ -1,6 +1,7 @@
 package com.grandefirano.gitreposexplorer.viewmodel
 
 import androidx.lifecycle.LiveData
+import com.grandefirano.gitreposexplorer.api.ApiConstants
 import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.contracts.MainContract
 import com.grandefirano.gitreposexplorer.model.ModelImpl
@@ -42,13 +43,18 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
         view.goToDetailsView()
     }
 
-    override fun loadMoreItems() {
-        println("dddd na dole")
+    override fun loadMoreItems(totalItemCount: Int, lastVisiblePos: Int) {
 
+        println("ddd mnoze ${ApiConstants.SIZE_OF_PAGE*actualPage}")
+        println("ddd ${totalItemCount}")
+        if(
+            lastVisiblePos
+            ==totalItemCount-1
+            &&totalItemCount>= ApiConstants.SIZE_OF_PAGE*actualPage) {
             actualPage++
-            println("dd $actualPage")
             model.getRepositories(actualSearchText, "s", "s", actualPage)
-
+        }
+        println("dddd $actualPage")
 
     }
 
