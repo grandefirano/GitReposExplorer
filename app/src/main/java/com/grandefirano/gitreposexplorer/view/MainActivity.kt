@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
 import com.grandefirano.gitreposexplorer.contracts.MainContract
+import com.grandefirano.gitreposexplorer.contracts.Model
+
 import com.grandefirano.gitreposexplorer.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_error.*
@@ -25,103 +27,32 @@ class MainActivity : AppCompatActivity(),
     MainContract.MainView {
 
     private lateinit var adapter: MainRecyclerViewAdapter
-    private lateinit var mainViewModel: MainViewModel
+    lateinit var mainViewModel: MainViewModel
+    lateinit var model: Model
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        //TODO: DO ZMIANY
-        val modelImpl = ExplorerApplication.model
-        mainViewModel = MainViewModel(this, modelImpl)
+        /**
+         * INIT MVVM
+         */
+        model = ExplorerApplication.model
+        mainViewModel = MainViewModel(this, model)
         mainViewModel.onViewInit()
 
-
         /**
-         * REPO RECYCLERVIEW
+         * INIT FUNCTIONS
          */
-        val layoutManager = LinearLayoutManager(this)
-        repoRecyclerView.layoutManager = layoutManager
-        repoRecyclerView.setHasFixedSize(true)
-        repoRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val totalItemCount = layoutManager.itemCount
-                val lastVisiblePos =
-                    layoutManager.findLastCompletelyVisibleItemPosition()
-                mainViewModel.loadMoreItems(totalItemCount, lastVisiblePos)
-            }
+        initRecyclerView()
+        initSpinner()
+        initLiveData()
 
-        })
-
-        adapter = MainRecyclerViewAdapter(mainViewModel)
-        repoRecyclerView.adapter = adapter
-
-        /**
-         * SPINNER
-         */
-
-        val titlesOfSpinner = resources.getStringArray(R.array.sort_by_list_title)
-        val valuesOfSpinner = resources.getStringArray(R.array.sort_by_list_value)
-
-        val adapterSpinner: ArrayAdapter<String> = ArrayAdapter<String>(
-            applicationContext,
-            R.layout.item_checked_spinner,
-            titlesOfSpinner
-        )
-        adapterSpinner.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-        spinner.adapter = adapterSpinner
-        spinner.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                println("Main Activity spinner nothing selected")
-            }
-
-            override fun onItemSelected(
-                parentView: AdapterView<*>?,
-                selectedItemView: View,
-                position: Int,
-                id: Long
-            ) {
-                val sortByState = valuesOfSpinner[position]
-                mainViewModel.onSortByStateChanged(sortByState)
-                println("Main Activity spinner $sortByState")
-            }
-        }
-
-        /**
-         * LIVE DATA OBSERVERS
-         */
-
-        mainViewModel.isServerLimitExceeded.observe(this, Observer {
-
-            println("Main Activity observe ServerLimit= $it")
-
-            it?.let {
-                showServerError(it)
-                showNoResults(false)
-                showList(false)
-            }
-        })
-
-        mainViewModel.filteredRepositories.observe(this, Observer {
-
-            println("Main Activity observe list is empty?= ${it.isEmpty()}")
-            adapter.submitList(it)
-            showServerError(false)
-            if (it.isEmpty()) {
-                showNoResults(true)
-                showList(false)
-            } else {
-                showList(true)
-                showNoResults(false)
-            }
-        })
     }
 
     override fun onResume() {
         super.onResume()
-        //TODO:download list
+        mainViewModel.onQueryChange()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -150,9 +81,92 @@ class MainActivity : AppCompatActivity(),
     }
 
     /**
-     * INTENT
+     * LIVE DATA OBSERVERS
      */
+    private fun initLiveData() {
+        mainViewModel.isServerLimitExceeded.observe(this, Observer {
 
+            println("Main Activity observe ServerLimit= $it")
+
+            it?.let {
+                showServerError(it)
+                showNoResults(false)
+                showList(false)
+            }
+        })
+
+        mainViewModel.filteredRepositories.observe(this, Observer {
+
+            println("Main Activity observe list is empty?= ${it.isEmpty()}")
+            adapter.submitList(it)
+            showServerError(false)
+            if (it.isEmpty()) {
+                showNoResults(true)
+                showList(false)
+            } else {
+                showList(true)
+                showNoResults(false)
+            }
+        })
+    }
+
+    /**
+     * SPINNER
+     */
+    private fun initSpinner() {
+        val titlesOfSpinner = resources.getStringArray(R.array.sort_by_list_title)
+        val valuesOfSpinner = resources.getStringArray(R.array.sort_by_list_value)
+
+        val adapterSpinner: ArrayAdapter<String> = ArrayAdapter<String>(
+            applicationContext,
+            R.layout.item_checked_spinner,
+            titlesOfSpinner
+        )
+        adapterSpinner.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        spinner.adapter = adapterSpinner
+        spinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                println("Main Activity spinner nothing selected")
+            }
+
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View,
+                position: Int,
+                id: Long
+            ) {
+                val sortByState = valuesOfSpinner[position]
+                mainViewModel.onSortByStateChanged(sortByState)
+                println("Main Activity spinner $sortByState")
+            }
+        }
+    }
+
+    /**
+     * REPO RECYCLERVIEW
+     */
+    private fun initRecyclerView() {
+        val layoutManager = LinearLayoutManager(this)
+        repoRecyclerView.layoutManager = layoutManager
+        repoRecyclerView.setHasFixedSize(true)
+        repoRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val totalItemCount = layoutManager.itemCount
+                val lastVisiblePos =
+                    layoutManager.findLastCompletelyVisibleItemPosition()
+                mainViewModel.loadMoreItems(totalItemCount, lastVisiblePos)
+            }
+        })
+
+        adapter = MainRecyclerViewAdapter(mainViewModel)
+        repoRecyclerView.adapter = adapter
+
+    }
+
+    /**
+     * NAVIGATION
+     */
     override fun goToDetailsView() {
         println("View open Details Activity")
         intent = Intent(this, DetailsActivity::class.java)

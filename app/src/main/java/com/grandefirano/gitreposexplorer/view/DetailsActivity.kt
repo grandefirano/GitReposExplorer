@@ -20,10 +20,9 @@ import kotlinx.android.synthetic.main.activity_details.*
 
 class DetailsActivity : AppCompatActivity(), DetailsContract.DetailsView {
 
-    lateinit var binding: ActivityDetailsBinding
+    private lateinit var binding: ActivityDetailsBinding
 
     var repo: Repo? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +30,9 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.DetailsView {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp)
 
-
         /**
-         * VIEW
+         * INIT MVVM & BINDING
          */
-
-
-        //TODO:DOZMIANY FUUUU
 
         val modelImpl = ExplorerApplication.model
         val detailsViewModel = DetailsViewModel(this, modelImpl)
@@ -46,8 +41,9 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.DetailsView {
         binding.lifecycleOwner = this
         binding.viewModel = detailsViewModel
 
-        websiteTextView.setPaintFlags(websiteTextView.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
 
+        websiteTextView.paintFlags = (websiteTextView.paintFlags
+                or Paint.UNDERLINE_TEXT_FLAG)
 
         /**
          * CONTRIBUTORS RECYCLERVIEW
@@ -85,13 +81,20 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.DetailsView {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun updateDetails() {
-        //TODO("Not yet implemented")
-    }
+    /**
+     * SHOW ERROR
+     */
 
     override fun showServerError() {
-        Snackbar.make(scrollView, "Server request limit is exceeded", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(
+            scrollView, "Server request limit is exceeded",
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
+
+    /**
+     * NAVIGATION
+     */
 
     override fun goToMain() {
         finish()
@@ -101,5 +104,4 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.DetailsView {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(website))
         startActivity(browserIntent)
     }
-
 }

@@ -1,10 +1,15 @@
 package com.grandefirano.gitreposexplorer.contracts
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.grandefirano.gitreposexplorer.api.Repo
 
 interface Model {
 
-    fun getRepositories(searchText: String,sortBy:String,page:Int)
-    fun getContributors(repo:Repo)
-    fun setActualRepository(repo:Repo)
+    var repos: MutableLiveData<List<Repo>>
+    var isServerLimitExceeded: MutableLiveData<Boolean>
+
+    fun getRepositories(searchText: String, sortBy: String, page: Int)
+    fun getContributors(repo: Repo)
+    fun setActualRepository(repo: Repo)
 }

@@ -3,15 +3,15 @@ package com.grandefirano.gitreposexplorer.contracts
 import com.grandefirano.gitreposexplorer.api.Repo
 
 interface DetailsContract {
-    interface DetailsView{
+    interface DetailsView {
 
-        fun updateDetails()
         fun showServerError()
         fun goToMain()
         fun goToWebsite(website: String)
     }
-    interface DetailsViewModel{
-        fun onWebsiteClick(website:String)
-        fun onInitView(repo:Repo)
+
+    interface DetailsViewModel {
+        fun onWebsiteClick(website: String)
+        fun onInitView(repo: Repo)
     }
 }

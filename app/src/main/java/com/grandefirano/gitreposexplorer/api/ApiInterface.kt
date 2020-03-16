@@ -10,13 +10,17 @@ import retrofit2.http.Query
 interface ApiInterface {
 
     @GET(GET_REPOS)
-    fun getRepositories(@Query("q")q:String,
-                        @Query("sort") sort: String,
-                        @Query("page") page: Int,
-                        @Query("per_page")perPage:Int): Call<RepoSearchResult>
+    fun getRepositories(
+        @Query("q") q: String,
+        @Query("sort") sort: String,
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int
+    ): Call<RepoSearchResult>
 
     @GET(GET_REPO_CONTRIBUTORS)
-    fun getContributors(@Path("owner")ownerName: String,
-                        @Path("repo")repoName: String):Call<List<Owner>>
+    fun getContributors(
+        @Path("owner") ownerName: String,
+        @Path("repo") repoName: String
+    ): Call<List<Owner>>
 
 }

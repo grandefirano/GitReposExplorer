@@ -10,13 +10,16 @@ import com.grandefirano.gitreposexplorer.contracts.Model
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class ModelImpl : Model {
+class ModelImpl @Inject constructor() : Model {
 
-    //TYMCZASOWE
 
+    /**
+     * SINGLETON
+     */
     companion object {
-        var modelImpl: ModelImpl? = null
+        private var modelImpl: ModelImpl? = null
         fun getInstance(): ModelImpl {
             if (modelImpl == null) {
                 modelImpl = ModelImpl()
@@ -25,62 +28,49 @@ class ModelImpl : Model {
         }
     }
 
-    var repos = MutableLiveData<List<Repo>>()
+    override var repos = MutableLiveData<List<Repo>>()
     var actualRepo = MutableLiveData<Repo>()
-    var isServerLimitExceeded = MutableLiveData(false)
+    override var isServerLimitExceeded = MutableLiveData(false)
 
     override fun setActualRepository(repo: Repo) {
 
-        println("owner ModelImpl" + repo.name)
-        //Null?
+        println("Model actual Repo=" + repo.name)
         actualRepo.value = repo
-
     }
 
-
     override fun getRepositories(searchText: String, sortBy: String, page: Int) {
-        println("ddddd Model getRepo $searchText $page")
+        println("Model getRepo $searchText $page")
         ExplorerApplication.apiInterface.getRepositories(searchText, sortBy, page, SIZE_OF_PAGE)
             .enqueue(object :
                 Callback<RepoSearchResult> {
                 override fun onFailure(call: Call<RepoSearchResult>, t: Throwable) {
-
+                    println("Model get repositories failed")
                 }
-
 
                 override fun onResponse(
                     call: Call<RepoSearchResult>,
                     response: Response<RepoSearchResult>
                 ) {
-                    //println("ddd model if succes: ${response.isSuccessful} ${response.errorBody()?.string()} GGG ${response.body()} on response")
-                    //println("answeeer ${response.errorBody()?.string()}")
-
+                    println("Model get repositories success: ${response.isSuccessful}")
                     if (response.isSuccessful) {
                         isServerLimitExceeded.value = false
                         if (response.body()?.repositories != null) {
 
-                            println("ddd model success on response")
                             val newArray = response.body()!!.repositories
                             if (page == 1) {
                                 this@ModelImpl.repos.value = newArray
-                                println("ddd inside new")
+                                println("Model get repositories new list")
                             } else {
                                 repos.value = repos.value?.plus(newArray)
-
+                                println("Model get repositories append list")
                             }
-
                         } else {
                             this@ModelImpl.repos.value = listOf()
                             println("ddd model else on response")
                         }
                     } else {
-
                         isServerLimitExceeded.postValue(
                             response.errorBody()?.string()
-                                ?.startsWith("{\"message\":\"API rate limit exceeded for")
-                        )
-                        println(
-                            "Modeeel czy ta" + response.errorBody()?.string()
                                 ?.startsWith("{\"message\":\"API rate limit exceeded for")
                         )
                     }
@@ -101,7 +91,7 @@ class ModelImpl : Model {
 
                 override fun onResponse(call: Call<List<Owner>>, response: Response<List<Owner>>) {
 
-                    println("Model download Contributors is succesful?=${response.isSuccessful}")
+                    println("Model download Contributors is successful?=${response.isSuccessful}")
 
                     if (response.isSuccessful) {
                         isServerLimitExceeded.value = false

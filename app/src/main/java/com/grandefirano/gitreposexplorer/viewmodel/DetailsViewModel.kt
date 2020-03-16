@@ -1,21 +1,24 @@
 package com.grandefirano.gitreposexplorer.viewmodel
 
+import androidx.lifecycle.ViewModel
 import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.contracts.DetailsContract
 import com.grandefirano.gitreposexplorer.model.ModelImpl
 
 
-class DetailsViewModel(val view: DetailsContract.DetailsView,
-                       val model: ModelImpl):DetailsContract.DetailsViewModel {
+class DetailsViewModel(
+    val view: DetailsContract.DetailsView,
+    private val model: ModelImpl
+) : ViewModel(), DetailsContract.DetailsViewModel {
 
-    var actualRepo=model.actualRepo
-    var isServerLimitExceeded=model.isServerLimitExceeded
+    var actualRepo = model.actualRepo
+    var isServerLimitExceeded = model.isServerLimitExceeded
 
-    override fun onWebsiteClick(website:String) {
+    override fun onWebsiteClick(website: String) {
         view.goToWebsite(website)
     }
 
-    override fun onInitView(repo:Repo) {
+    override fun onInitView(repo: Repo) {
         model.getContributors(repo)
     }
 }
