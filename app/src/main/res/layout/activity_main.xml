@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnusedAttribute">
 
         <TextView
             android:textSize="14sp"
@@ -28,15 +29,14 @@
             android:id="@+id/sortByTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sort by: " />
+            android:text="@string/sort_by_title" />
 
         <Spinner
            android:overlapAnchor="false"
             android:id="@+id/spinner"
             android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 
@@ -71,7 +71,8 @@
             android:layout_centerInParent="false"
             android:layout_centerHorizontal="true"
             app:srcCompat="@drawable/logo_github"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="20dp"
+            android:contentDescription="@string/github_logo" />
 
         <TextView
             android:id="@+id/textView"
@@ -79,10 +80,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/logoImageView"
             android:layout_centerHorizontal="true"
-            android:layout_marginHorizontal="50dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginBottom="15dp"
             android:gravity="center_horizontal"
-            android:text="Welcome to unofficial Repository Explorer made by grandefirano" />
+            android:text="@string/welcome_text" />
 
         <Button
             android:id="@+id/searchButton"
@@ -92,7 +94,7 @@
 
             android:layout_centerHorizontal="true"
             android:background="@drawable/square_rounded_green"
-            android:text="Search For Repo"
+            android:text="@string/search_for_repo_button"
             android:textColor="@color/colorTextSecondary" />
     </RelativeLayout>
 

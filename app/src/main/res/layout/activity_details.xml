@@ -16,7 +16,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -116,12 +116,14 @@
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="177dp"
         tools:layout_editor_absoluteY="306dp"
-        android:layout_marginVertical="4dp">
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp">
 
         <LinearLayout
-            android:paddingVertical="7dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="20dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="20dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -143,7 +145,8 @@
                 android:src="@drawable/watch"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="171dp" />
+                tools:layout_editor_absoluteX="171dp"
+                android:contentDescription="@string/watch_description" />
 
             <TextView
                 android:id="@+id/starTextView"
@@ -163,7 +166,8 @@
                 android:src="@drawable/ic_star"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="171dp" />
+                tools:layout_editor_absoluteX="171dp"
+                android:contentDescription="@string/star_description" />
 
             <TextView
 
@@ -179,14 +183,14 @@
 
 
             <ImageView
-
                 android:id="@+id/forkImageView"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/fork"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="171dp" />
+                tools:layout_editor_absoluteX="171dp"
+                android:contentDescription="@string/fork_description" />
 
             <TextView
                 android:id="@+id/contributorCountTextView"
@@ -207,7 +211,8 @@
                 android:src="@drawable/ic_group_black_24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="171dp" />
+                tools:layout_editor_absoluteX="171dp"
+                android:contentDescription="@string/contributors_description" />
 
 
         </LinearLayout>
@@ -217,7 +222,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp">
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -228,7 +234,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:text="Description"
+                    android:text="@string/description_title"
                     android:gravity="center"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -254,7 +260,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp">
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -265,7 +272,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Website"
+                    android:text="@string/website_title"
                     android:textSize="16sp"
                     android:gravity="center"
                     app:layout_constraintStart_toStartOf="parent"
@@ -295,7 +302,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp">
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -305,7 +313,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Contributors"
+                    android:text="@string/contributors_title"
                     android:gravity="center"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -315,7 +323,8 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/contributorsRecyclerView"
                         android:paddingBottom="4dp"
-                        android:paddingHorizontal="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
                         android:clipToPadding = "false"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/contributorsTitleTextView"

@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
@@ -14,11 +13,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginHorizontal="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:layout_marginBottom="10dp"
         android:textSize="90sp"
         android:gravity="center_horizontal"
-        android:text=":(" />
+        android:text="@string/error_icon" />
 
 
     <TextView
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/iconTextView"
         android:gravity="center_horizontal"
-        android:text="There is no such repository" />
+        android:text="@string/no_repository_prompt" />
 
 
 </RelativeLayout>

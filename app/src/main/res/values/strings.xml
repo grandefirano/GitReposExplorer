@@ -2,6 +2,20 @@
     <string name="app_name">Repos Explorer</string>
     <string name="lorem_ipsum">Praesent massa nisl, dictum fringilla ex ac, condimentum volutpat magna. Suspendisse malesuada turpis est, ut porttitor ipsum rhoncus eu. Curabitur tempus bibendum ornare. In vehicula, nisi quis elementum mattis, augue arcu gravida magna, et accumsan elit nibh quis nisi. Praesent sit amet ipsum nec turpis malesuada cursus.</string>
     <string name="sample_website">https://github.community/t5/GitHub-API-Development-and/API-Github-list-contributors/td-p/9631</string>
+    <string name="sort_by_title">Sort by:</string>
+    <string name="github_logo">GitHubLogo</string>
+    <string name="welcome_text">Welcome to unofficial Repository Explorer made by grandefirano</string>
+    <string name="search_for_repo_button">Search For Repo</string>
+    <string name="error_icon">:(</string>
+    <string name="no_repository_prompt">There is no such repository</string>
+    <string name="star_description">Star</string>
+    <string name="watch_description">watch</string>
+    <string name="fork_description">fork</string>
+    <string name="contributors_description">contributors</string>
+    <string name="description_title">Description</string>
+    <string name="website_title">Website</string>
+    <string name="contributors_title">Contributors</string>
+    <string name="rate_limit_error">Rate limit of requests exceeded</string>
 
     <string-array name="sort_by_list_title">
         <item>Best match</item>
@@ -10,7 +24,7 @@
         <item>Recently updated</item>
     </string-array>
     <string-array name="sort_by_list_value">
-        <item></item>
+        <item />
         <item>stars</item>
         <item>forks</item>
         <item>updated</item>
