@@ -61,8 +61,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
                     app:layout_constraintStart_toEndOf="@id/imageView"
                     app:layout_constraintTop_toBottomOf="@id/repoInDetailTextView">
+
                     <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/colorDotImageView"
                     android:layout_width="12dp"
@@ -81,26 +83,28 @@
                     app:layout_constraintStart_toEndOf="@id/colorDotImageView"
                     app:layout_constraintTop_toBottomOf="@id/repoInDetailTextView" />
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/ownerInDetailTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="5dp"
-                    tools:text="grandefirano"
+                    android:layout_marginTop="3dp"
                     android:text="@{viewModel.actualRepo.owner.login}"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
-                    app:layout_constraintTop_toBottomOf="@+id/languageLayout" />
+                    app:layout_constraintTop_toBottomOf="@+id/languageLayout"
+                    tools:text="grandefirano" />
+
                 <TextView
                     android:id="@+id/lastUpdatedTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="5dp"
-                    tools:text="last update: 12/03/2019"
-                    app:textDateFormat="@{viewModel.actualRepo.updatedAt}"
+                    android:layout_marginTop="4dp"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
-                    app:layout_constraintTop_toBottomOf="@+id/ownerInDetailTextView" />
+                    app:layout_constraintTop_toBottomOf="@+id/ownerInDetailTextView"
+                    app:textDateFormat="@{viewModel.actualRepo.updatedAt}"
+                    tools:text="last update: 12/03/2019" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -316,6 +320,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/contributorsTitleTextView">
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/contributorsRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </androidx.core.widget.NestedScrollView>

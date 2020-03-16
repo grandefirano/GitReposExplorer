@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+        <variable
+            name="contributor"
+            type="com.grandefirano.gitreposexplorer.api.Owner" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:paddingVertical="7dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="5dp"
+        android:layout_height="wrap_content">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/repoPhotoTextView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:src="@drawable/default_photo"
+            app:imageUrl="@{contributor.avatar}"
+            app:civ_border_color="#fff"
+            app:civ_border_width="2dp" />
+
+
+        <TextView
+            android:id="@+id/nameOfOwnerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{contributor.login}"
+            android:textSize="13sp"
+           tools:text="grandefirano" />
+
+
+    </LinearLayout>
+
+</layout>

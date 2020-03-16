@@ -8,6 +8,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
@@ -16,6 +18,7 @@ import com.grandefirano.gitreposexplorer.contracts.DetailsContract
 import com.grandefirano.gitreposexplorer.databinding.ActivityDetailsBinding
 import com.grandefirano.gitreposexplorer.viewmodel.DetailsViewModel
 import kotlinx.android.synthetic.main.activity_details.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
 
@@ -30,6 +33,11 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp)
 
+        val layoutManager= LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        var adapter=ContributorsAdapter()
+        contributorsRecyclerView.layoutManager=layoutManager
+        contributorsRecyclerView.setHasFixedSize(true)
+        contributorsRecyclerView.adapter=adapter
 
         websiteTextView.setPaintFlags(websiteTextView.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
 
@@ -48,10 +56,10 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
         detailsViewModel.isServerLimitExceeded.value=false
         detailsViewModel.actualRepo.observe(this, Observer {
             if(it.contributors.isNullOrEmpty())
-            detailsViewModel.onInitView(it)
+                detailsViewModel.onInitView(it)
+            else
+                adapter.submitList(it.contributors)
 
-            println("dddd owner detailActiv name "+it.name)
-            println("dddd owner detailActiv contri"+it.contributors)
 
         })
 
@@ -64,6 +72,11 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
         })
 
         binding.lifecycleOwner = this
+
+
+
+
+
 
     }
 
