@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
@@ -18,71 +17,70 @@ import com.grandefirano.gitreposexplorer.contracts.DetailsContract
 import com.grandefirano.gitreposexplorer.databinding.ActivityDetailsBinding
 import com.grandefirano.gitreposexplorer.viewmodel.DetailsViewModel
 import kotlinx.android.synthetic.main.activity_details.*
-import kotlinx.android.synthetic.main.activity_main.*
 
-class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
+class DetailsActivity : AppCompatActivity(), DetailsContract.DetailsView {
 
-    lateinit var binding:ActivityDetailsBinding
+    lateinit var binding: ActivityDetailsBinding
 
-    var repo: Repo?=null
+    var repo: Repo? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=DataBindingUtil.setContentView(this,R.layout.activity_details)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp)
 
-        val layoutManager= LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-        var adapter=ContributorsAdapter()
-        contributorsRecyclerView.layoutManager=layoutManager
-        contributorsRecyclerView.setHasFixedSize(true)
-        contributorsRecyclerView.adapter=adapter
+
+        /**
+         * VIEW
+         */
+
+
+        //TODO:DOZMIANY FUUUU
+
+        val modelImpl = ExplorerApplication.model
+        val detailsViewModel = DetailsViewModel(this, modelImpl)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_details)
+        binding.lifecycleOwner = this
+        binding.viewModel = detailsViewModel
 
         websiteTextView.setPaintFlags(websiteTextView.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
 
 
-        //TODO:DOZMIANY FUUUU
         /**
-         * TOZMIENIC
+         * CONTRIBUTORS RECYCLERVIEW
          */
-        var modelImpl=ExplorerApplication.model
-        var detailsViewModel=DetailsViewModel(this,modelImpl)
+
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val adapter = ContributorsAdapter()
+        contributorsRecyclerView.layoutManager = layoutManager
+        contributorsRecyclerView.setHasFixedSize(true)
+        contributorsRecyclerView.adapter = adapter
 
 
-        binding.viewModel=detailsViewModel
+        /**
+         * OBSERVERS OF LIVE DATA
+         */
 
-//        binding.executePendingBindings()
-        detailsViewModel.isServerLimitExceeded.value=false
         detailsViewModel.actualRepo.observe(this, Observer {
-            if(it.contributors.isNullOrEmpty())
+            if (it.contributors.isNullOrEmpty())
                 detailsViewModel.onInitView(it)
             else
                 adapter.submitList(it.contributors)
-
-
         })
 
         detailsViewModel.isServerLimitExceeded.observe(this, Observer {
-
             it?.let {
-                if(it) showServerError()
+                if (it) showServerError()
             }
-
         })
-
-        binding.lifecycleOwner = this
-
-
-
-
-
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            android.R.id.home->onBackPressed()
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -92,7 +90,7 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
     }
 
     override fun showServerError() {
-        Snackbar.make(scrollView,"Server request limit is exceeded",Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(scrollView, "Server request limit is exceeded", Snackbar.LENGTH_SHORT).show()
     }
 
     override fun goToMain() {

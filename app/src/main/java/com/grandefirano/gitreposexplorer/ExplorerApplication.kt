@@ -1,7 +1,6 @@
 package com.grandefirano.gitreposexplorer
 
 import android.app.Application
-import android.util.Log
 import com.grandefirano.gitreposexplorer.api.ApiConstants
 import com.grandefirano.gitreposexplorer.api.ApiInterface
 import com.grandefirano.gitreposexplorer.model.ModelImpl

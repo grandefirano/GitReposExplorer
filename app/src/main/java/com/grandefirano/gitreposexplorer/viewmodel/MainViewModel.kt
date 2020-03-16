@@ -18,7 +18,7 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
     override fun onQueryChange() {
         actualPage=1
 
-        if(actualSearchText!=null&& actualSearchText!="") {
+        if(actualSearchText!="") {
 
             model.getRepositories(actualSearchText,sortListBy,1)
             view.showWelcomeScreen(false)
@@ -56,17 +56,6 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
             actualPage++
             model.getRepositories(actualSearchText, sortListBy, actualPage)
         }
-
     }
-
-    //TODO:DELEYE
-    override fun onNoItemInList(b: Boolean) {
-        if(b&& actualSearchText.isNotEmpty()){
-            view.showList(false)
-        }else{
-            view.showList(true)
-        }
-    }
-
 
 }

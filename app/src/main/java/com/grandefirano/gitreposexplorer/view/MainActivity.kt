@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
-import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.contracts.MainContract
 import com.grandefirano.gitreposexplorer.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,9 +25,8 @@ class MainActivity : AppCompatActivity(),
     MainContract.MainView {
 
     private lateinit var adapter: MainRecyclerViewAdapter
-
-
     private lateinit var mainViewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -39,17 +37,18 @@ class MainActivity : AppCompatActivity(),
         mainViewModel = MainViewModel(this, modelImpl)
         mainViewModel.onViewInit()
 
-        println("owner mainActiv " + modelImpl.toString())
 
+        /**
+         * REPO RECYCLERVIEW
+         */
         val layoutManager = LinearLayoutManager(this)
         repoRecyclerView.layoutManager = layoutManager
         repoRecyclerView.setHasFixedSize(true)
-        var totalItemCount: Int
         repoRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                totalItemCount = layoutManager.itemCount
-                var lastVisiblePos =
+                val totalItemCount = layoutManager.itemCount
+                val lastVisiblePos =
                     layoutManager.findLastCompletelyVisibleItemPosition()
                 mainViewModel.loadMoreItems(totalItemCount, lastVisiblePos)
             }
@@ -59,6 +58,9 @@ class MainActivity : AppCompatActivity(),
         adapter = MainRecyclerViewAdapter(mainViewModel)
         repoRecyclerView.adapter = adapter
 
+        /**
+         * SPINNER
+         */
 
         val titlesOfSpinner = resources.getStringArray(R.array.sort_by_list_title)
         val valuesOfSpinner = resources.getStringArray(R.array.sort_by_list_value)
@@ -74,12 +76,14 @@ class MainActivity : AppCompatActivity(),
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 println("Main Activity spinner nothing selected")
             }
+
             override fun onItemSelected(
                 parentView: AdapterView<*>?,
                 selectedItemView: View,
                 position: Int,
-                id: Long) {
-                var sortByState=valuesOfSpinner[position]
+                id: Long
+            ) {
+                val sortByState = valuesOfSpinner[position]
                 mainViewModel.onSortByStateChanged(sortByState)
                 println("Main Activity spinner $sortByState")
             }
@@ -115,6 +119,11 @@ class MainActivity : AppCompatActivity(),
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        //TODO:download list
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_main, menu)
@@ -126,6 +135,7 @@ class MainActivity : AppCompatActivity(),
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
+
             override fun onQueryTextChange(newText: String): Boolean {
                 println("Main Activity search Text Change =$newText")
                 mainViewModel.onQueryTextChanged(newText)
@@ -156,7 +166,7 @@ class MainActivity : AppCompatActivity(),
         println("View show list: $ifShow")
         if (ifShow)
             repoRecyclerView.visibility = View.VISIBLE
-         else
+        else
             repoRecyclerView.visibility = View.GONE
     }
 
@@ -181,14 +191,12 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-
     override fun showServerError(ifShow: Boolean) {
         println("View show error: $ifShow")
         if (ifShow)
             errorLayout.visibility = View.VISIBLE
-         else
+        else
             errorLayout.visibility = View.GONE
     }
-
 
 }

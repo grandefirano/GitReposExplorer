@@ -3,7 +3,6 @@ package com.grandefirano.gitreposexplorer.model
 import androidx.lifecycle.MutableLiveData
 import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.api.ApiConstants.SIZE_OF_PAGE
-import com.grandefirano.gitreposexplorer.api.DetailedRepo
 import com.grandefirano.gitreposexplorer.api.Owner
 import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.api.RepoSearchResult
@@ -12,130 +11,116 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ModelImpl:Model {
+class ModelImpl : Model {
 
     //TYMCZASOWE
 
-    companion object{
-        var modelImpl:ModelImpl?=null
-        fun getInstance():ModelImpl{
-            if(modelImpl==null){
-                modelImpl=ModelImpl()
+    companion object {
+        var modelImpl: ModelImpl? = null
+        fun getInstance(): ModelImpl {
+            if (modelImpl == null) {
+                modelImpl = ModelImpl()
             }
             return modelImpl as ModelImpl
         }
     }
 
-     var repos= MutableLiveData<List<Repo>>()
-    var actualRepo=MutableLiveData<Repo>()
-    var isServerLimitExceeded=MutableLiveData(false)
+    var repos = MutableLiveData<List<Repo>>()
+    var actualRepo = MutableLiveData<Repo>()
+    var isServerLimitExceeded = MutableLiveData(false)
 
-    override fun setActualRepository(repo:Repo){
+    override fun setActualRepository(repo: Repo) {
 
-        println("owner ModelImpl"+repo.name)
+        println("owner ModelImpl" + repo.name)
         //Null?
-        actualRepo.value= repo
+        actualRepo.value = repo
 
     }
 
 
-
-    override fun getRepositories(searchText: String,sortBy:String,page:Int) {
+    override fun getRepositories(searchText: String, sortBy: String, page: Int) {
         println("ddddd Model getRepo $searchText $page")
-        ExplorerApplication.apiInterface.getRepositories(searchText,sortBy,page,SIZE_OF_PAGE).enqueue(object:
-            Callback<RepoSearchResult>{
-            override fun onFailure(call: Call<RepoSearchResult>, t: Throwable) {
+        ExplorerApplication.apiInterface.getRepositories(searchText, sortBy, page, SIZE_OF_PAGE)
+            .enqueue(object :
+                Callback<RepoSearchResult> {
+                override fun onFailure(call: Call<RepoSearchResult>, t: Throwable) {
 
-            }
+                }
 
 
-            override fun onResponse(
-                call: Call<RepoSearchResult>,
-                response: Response<RepoSearchResult>
-            ) {
-                //println("ddd model if succes: ${response.isSuccessful} ${response.errorBody()?.string()} GGG ${response.body()} on response")
-                //println("answeeer ${response.errorBody()?.string()}")
+                override fun onResponse(
+                    call: Call<RepoSearchResult>,
+                    response: Response<RepoSearchResult>
+                ) {
+                    //println("ddd model if succes: ${response.isSuccessful} ${response.errorBody()?.string()} GGG ${response.body()} on response")
+                    //println("answeeer ${response.errorBody()?.string()}")
 
-                if (response.isSuccessful) {
-                    isServerLimitExceeded.value=false
-                    if (response.body()?.repositories != null) {
+                    if (response.isSuccessful) {
+                        isServerLimitExceeded.value = false
+                        if (response.body()?.repositories != null) {
 
-                        println("ddd model success on response")
-                        var newArray = response.body()!!.repositories
-                        if (page == 1) {
-                            this@ModelImpl.repos.value = newArray
-                            println("ddd inside new")
+                            println("ddd model success on response")
+                            val newArray = response.body()!!.repositories
+                            if (page == 1) {
+                                this@ModelImpl.repos.value = newArray
+                                println("ddd inside new")
+                            } else {
+                                repos.value = repos.value?.plus(newArray)
+
+                            }
+
                         } else {
-                            repos.value = repos.value?.plus(newArray)
-
+                            this@ModelImpl.repos.value = listOf()
+                            println("ddd model else on response")
                         }
-
                     } else {
-                        this@ModelImpl.repos.value = listOf()
-                        println("ddd model else on response")
+
+                        isServerLimitExceeded.postValue(
+                            response.errorBody()?.string()
+                                ?.startsWith("{\"message\":\"API rate limit exceeded for")
+                        )
+                        println(
+                            "Modeeel czy ta" + response.errorBody()?.string()
+                                ?.startsWith("{\"message\":\"API rate limit exceeded for")
+                        )
                     }
-                } else {
-
-                    isServerLimitExceeded.postValue(
-                        response.errorBody()?.string()
-                            ?.startsWith("{\"message\":\"API rate limit exceeded for")
-                    )
-                    println(
-                        "Modeeel czy ta" + response.errorBody()?.string()
-                            ?.startsWith("{\"message\":\"API rate limit exceeded for")
-                    )
                 }
-            }
-        })
+            })
     }
 
-    override fun getTrending() {
-        TODO("Not yet implemented")
-    }
+    override fun getContributors(repo: Repo) {
 
-    override fun getContributors(repo:Repo) {
+        val repoName = repo.name
+        val ownerName = repo.owner.login
 
-        var repoName=repo.name
-        var ownerName=repo.owner.login
-        //contributors
-        ExplorerApplication.apiInterface.getContributors(ownerName,repoName).enqueue(object :Callback<List<Owner>>{
-            override fun onFailure(call: Call<List<Owner>>, t: Throwable) {
+        ExplorerApplication.apiInterface
+            .getContributors(ownerName, repoName).enqueue(object : Callback<List<Owner>> {
+                override fun onFailure(call: Call<List<Owner>>, t: Throwable) {
+                    println("Model download Contributors failed")
+                }
 
-            }
+                override fun onResponse(call: Call<List<Owner>>, response: Response<List<Owner>>) {
 
-            override fun onResponse(call: Call<List<Owner>>, response: Response<List<Owner>>) {
-                println("ddd model if succes: ${response.isSuccessful} ${response.errorBody()?.string()} GGG ${response.body()} on response")
-                println("ddd contrib}")
-                    
-                    println("ddd contrib ")
-                if(response.isSuccessful){
-                    isServerLimitExceeded.value=false
-                    var listOfContributors=response.body()
-                    if(listOfContributors!=null) {
-                        repo.contributors=listOfContributors
-                        repo.contributorsCount=listOfContributors.size
-                        actualRepo.value=repo
-                        println("dddd ${actualRepo.value?.contributors}")
-                        println("dddd ${actualRepo.value?.contributorsCount}")
+                    println("Model download Contributors is succesful?=${response.isSuccessful}")
+
+                    if (response.isSuccessful) {
+                        isServerLimitExceeded.value = false
+                        val listOfContributors = response.body()
+                        if (listOfContributors != null) {
+                            repo.contributors = listOfContributors
+                            repo.contributorsCount = listOfContributors.size
+                            actualRepo.value = repo
+                            println("Model actual Repo Contributors ${actualRepo.value?.contributors}")
+                            println("Model actual Repo Contributors count ${actualRepo.value?.contributorsCount}")
+                        }
+                    } else {
+
+                        isServerLimitExceeded.postValue(
+                            response.errorBody()?.string()
+                                ?.startsWith("{\"message\":\"API rate limit exceeded for")
+                        )
                     }
-                }else {
-
-                    isServerLimitExceeded.postValue(
-                        response.errorBody()?.string()
-                            ?.startsWith("{\"message\":\"API rate limit exceeded for")
-                    )
                 }
-            }
-
-        })
-    }
-
-    override fun getColorOfLanguage(language: String) {
-        TODO("Not yet implemented")
-    }
-
-
-    override fun downloadPhoto(url: String) {
-        TODO("Not yet implemented")
+            })
     }
 }

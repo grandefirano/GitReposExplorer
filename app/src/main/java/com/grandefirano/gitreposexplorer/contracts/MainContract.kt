@@ -26,7 +26,6 @@ interface MainContract {
         fun onSortByStateChanged(sort:String)
         fun onRepoClicked(repo:Repo)
         fun loadMoreItems(totalItemCount:Int,lastVisiblePos:Int)
-        fun onNoItemInList(b: Boolean)
 
     }
 }

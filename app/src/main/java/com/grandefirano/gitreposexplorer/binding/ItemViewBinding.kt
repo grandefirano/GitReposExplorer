@@ -2,8 +2,6 @@ package com.grandefirano.gitreposexplorer.binding
 
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.ShapeDrawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,26 +13,21 @@ import com.grandefirano.gitreposexplorer.getJsonDataFromAsset
 import com.squareup.picasso.Picasso
 import java.lang.reflect.Type
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 @BindingAdapter("imageUrl")
 fun bindAdapterPhoto(imageView: ImageView, imageUrl: String) {
-    if (imageUrl != null) {
-        // If we don't do this, you'll see the old image appear briefly
-        // before it's replaced with the current image
-        Picasso.with(imageView.context).load(imageUrl).into(imageView)
-    }
+        Picasso.with(imageView.context)
+            .load(imageUrl).into(imageView)
 }
 
 @BindingAdapter("textDateFormat")
 fun bindAdapterDateText(textView: TextView,date:String){
-    if(date!=null){
-
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        val formatter = SimpleDateFormat("dd.MM.yyyy HH:mm")
-        val output: String = formatter.format(parser.parse("2018-12-14T09:55:00Z"))
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+        val formatter = SimpleDateFormat("dd.MM.yyyy HH:mm",Locale.getDefault())
+        val output: String = formatter.format(parser.parse(date))
         textView.text=output
-    }
 }
 @BindingAdapter("shapeColor")
 fun bindAdapterShapeColor(imageView: ImageView,language:String?){

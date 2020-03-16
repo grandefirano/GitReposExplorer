@@ -15,7 +15,7 @@ data class Repo (@SerializedName("id") val id:Int,
                  @SerializedName("description")val description:String) {
 
 
-     var contributors:List<Owner> = listOf()
+    var contributors:List<Owner> = listOf()
     var contributorsCount:Int=1
 
 }
