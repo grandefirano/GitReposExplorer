@@ -50,11 +50,9 @@
         tools:visibility="visible" />
 
     <include
-        android:id="@+id/noResultsLayout"
-        layout="@layout/fragment_no_result"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        layout="@layout/fragment_error" />
+    <include
+        layout="@layout/fragment_no_result" />
     <RelativeLayout
         android:id="@+id/welcomeLayout"
         android:layout_gravity="center"

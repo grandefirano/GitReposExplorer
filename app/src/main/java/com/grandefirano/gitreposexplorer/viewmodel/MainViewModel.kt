@@ -11,6 +11,7 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
     var filteredRepositories:LiveData<List<Repo>> = model.repos
     override var actualSearchText:String=""
     var actualPage:Int=1
+    override var isServerLimitExceeded=model.isServerLimitExceeded
     override var sortListBy:String=""
 
 
@@ -18,15 +19,18 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
         actualPage=1
 
         if(actualSearchText!=null&& actualSearchText!="") {
-            //TODO ZMIENIC
+
             model.getRepositories(actualSearchText,sortListBy,1)
-            view.showList()
+            view.showWelcomeScreen(false)
         }
         else onViewInit()
     }
 
     override fun onViewInit() {
-        view.showWelcomeScreen()
+        view.showWelcomeScreen(true)
+        view.showList(false)
+        view.showNoResults(false)
+        view.showServerError(false)
     }
 
     override fun onSortByClicked() {
@@ -34,15 +38,11 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
     }
 
     override fun onRepoClicked(repo:Repo) {
-
         model.setActualRepository(repo)
         view.goToDetailsView()
     }
 
     override fun loadMoreItems(totalItemCount: Int, lastVisiblePos: Int) {
-
-        println("ddd mnoze ${ApiConstants.SIZE_OF_PAGE*actualPage}")
-        println("ddd ${totalItemCount}")
         if(
             lastVisiblePos
             ==totalItemCount-1
@@ -50,16 +50,15 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
             actualPage++
             model.getRepositories(actualSearchText, sortListBy, actualPage)
         }
-        println("dddd $actualPage")
 
     }
 
+    //TODO:DELEYE
     override fun onNoItemInList(b: Boolean) {
         if(b&& actualSearchText.isNotEmpty()){
-            println("ddd show $actualSearchText")
-            view.showNoResults(actualSearchText)
+            view.showList(false)
         }else{
-            view.hideNoResult()
+            view.showList(true)
         }
     }
 

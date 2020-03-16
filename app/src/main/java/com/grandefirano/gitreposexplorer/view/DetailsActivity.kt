@@ -52,7 +52,7 @@ class DetailsActivity : AppCompatActivity(),DetailsContract.DetailsView {
 
         binding.viewModel=detailsViewModel
 
-        binding.executePendingBindings()
+//        binding.executePendingBindings()
         detailsViewModel.isServerLimitExceeded.value=false
         detailsViewModel.actualRepo.observe(this, Observer {
             if(it.contributors.isNullOrEmpty())

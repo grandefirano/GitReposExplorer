@@ -28,7 +28,7 @@ class ModelImpl:Model {
 
      var repos= MutableLiveData<List<Repo>>()
     var actualRepo=MutableLiveData<Repo>()
-    var isServerLimitExceeded=MutableLiveData<Boolean>(false)
+    var isServerLimitExceeded=MutableLiveData(false)
 
     override fun setActualRepository(repo:Repo){
 
@@ -53,24 +53,38 @@ class ModelImpl:Model {
                 call: Call<RepoSearchResult>,
                 response: Response<RepoSearchResult>
             ) {
-                println("ddd model if succes: ${response.isSuccessful} ${response.errorBody()?.string()} GGG ${response.body()} on response")
-                if( response.body()?.repositories!=null){
-                    println("ddd model success on response")
-                    var newArray= response.body()!!.repositories
-                    if(page==1) {
-                        this@ModelImpl.repos.value = newArray
-                        println("ddd inside new")
-                    }else{
-                        repos.value = repos.value?.plus(newArray)
+                //println("ddd model if succes: ${response.isSuccessful} ${response.errorBody()?.string()} GGG ${response.body()} on response")
+                //println("answeeer ${response.errorBody()?.string()}")
 
+                if (response.isSuccessful) {
+                    isServerLimitExceeded.value=false
+                    if (response.body()?.repositories != null) {
+
+                        println("ddd model success on response")
+                        var newArray = response.body()!!.repositories
+                        if (page == 1) {
+                            this@ModelImpl.repos.value = newArray
+                            println("ddd inside new")
+                        } else {
+                            repos.value = repos.value?.plus(newArray)
+
+                        }
+
+                    } else {
+                        this@ModelImpl.repos.value = listOf()
+                        println("ddd model else on response")
                     }
+                } else {
 
-                }else{
-                    this@ModelImpl.repos.value= listOf()
-                    println("ddd model else on response")
+                    isServerLimitExceeded.postValue(
+                        response.errorBody()?.string()
+                            ?.startsWith("{\"message\":\"API rate limit exceeded for")
+                    )
+                    println(
+                        "Modeeel czy ta" + response.errorBody()?.string()
+                            ?.startsWith("{\"message\":\"API rate limit exceeded for")
+                    )
                 }
-                isServerLimitExceeded.postValue(response.errorBody()?.string()?.startsWith("{\"message\":\"API rate limit exceeded for"))
-
             }
         })
     }
@@ -93,9 +107,9 @@ class ModelImpl:Model {
                 println("ddd model if succes: ${response.isSuccessful} ${response.errorBody()?.string()} GGG ${response.body()} on response")
                 println("ddd contrib}")
                     
-                    //println("ddd contrib ${response.body()}")
+                    println("ddd contrib ")
                 if(response.isSuccessful){
-
+                    isServerLimitExceeded.value=false
                     var listOfContributors=response.body()
                     if(listOfContributors!=null) {
                         repo.contributors=listOfContributors
@@ -104,9 +118,13 @@ class ModelImpl:Model {
                         println("dddd ${actualRepo.value?.contributors}")
                         println("dddd ${actualRepo.value?.contributorsCount}")
                     }
-                }
-                isServerLimitExceeded.postValue(response.errorBody()?.string()?.startsWith("{\"message\":\"API rate limit exceeded for"))
+                }else {
 
+                    isServerLimitExceeded.postValue(
+                        response.errorBody()?.string()
+                            ?.startsWith("{\"message\":\"API rate limit exceeded for")
+                    )
+                }
             }
 
         })

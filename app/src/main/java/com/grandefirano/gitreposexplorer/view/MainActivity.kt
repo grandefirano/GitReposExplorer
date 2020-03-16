@@ -18,6 +18,8 @@ import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.contracts.MainContract
 import com.grandefirano.gitreposexplorer.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_error.*
+import kotlinx.android.synthetic.main.fragment_no_result.*
 
 
 class MainActivity : AppCompatActivity(),
@@ -89,10 +91,33 @@ class MainActivity : AppCompatActivity(),
 
         }
 
+        mainViewModel.isServerLimitExceeded.value=false
+
+
+        mainViewModel.isServerLimitExceeded.observe(this, Observer {
+
+            println("dddd main acti ERRPR$it")
+
+            it?.let {
+                 showServerError(it)
+                showNoResults(false)
+                showList(false)
+            }
+
+        })
+
         mainViewModel.filteredRepositories.observe(this, Observer {
 
             println("ddd list ${it.isEmpty()}")
             adapter.submitList(it)
+            showServerError(false)
+            if(it.isEmpty()){
+                showNoResults(true)
+                showList(false)
+            }else {
+                showList(true)
+               showNoResults(false)
+            }
 
 
         })
@@ -128,21 +153,35 @@ class MainActivity : AppCompatActivity(),
         return true
     }
 
-    override fun showList() {
-        repoRecyclerView.visibility= View.VISIBLE
-        toolbarLayout.visibility=View.VISIBLE
-        welcomeLayout.visibility=View.GONE
+    //TODO
+    override fun showList(ifShow: Boolean) {
+        println("View show list: $ifShow")
+        if(ifShow) {
+            repoRecyclerView.visibility = View.VISIBLE
+
+        }else{
+            repoRecyclerView.visibility = View.GONE
+
+        }
+        //welcomeLayout.visibility=View.GONE
     }
 
-    override fun showWelcomeScreen() {
-        toolbarLayout.visibility=View.GONE
-        repoRecyclerView.visibility=View.GONE
-        welcomeLayout.visibility=View.VISIBLE
+    override fun showWelcomeScreen(ifShow: Boolean) {
+        //toolbarLayout.visibility=View.GONE
+        //repoRecyclerView.visibility=View.GONE
+        println("View show welcome: $ifShow")
+        if(ifShow) {
+            welcomeLayout.visibility = View.VISIBLE
+            toolbarLayout.visibility = View.GONE
+        }else{
+            welcomeLayout.visibility=View.GONE
+            toolbarLayout.visibility = View.VISIBLE
+        }
     }
 
 
     override fun updateList(repositories: List<Repo>) {
-        adapter.notifyDataSetChanged()
+        //adapter.notifyDataSetChanged()
 
     }
 
@@ -151,14 +190,28 @@ class MainActivity : AppCompatActivity(),
         startActivity(intent)
     }
 
-    override fun showNoResults(searchText: String) {
-        noResultsLayout.visibility=View.VISIBLE
+    override fun showNoResults(ifShow: Boolean) {
+        if(ifShow)
+        noResultLayoutLayout.visibility=View.VISIBLE
+        else
+            noResultLayoutLayout.visibility=View.GONE
+
     }
 
-    override fun hideNoResult() {
-        noResultsLayout.visibility=View.GONE
-    }
 
+
+    override fun showServerError(b:Boolean) {
+        println("View show error: $b")
+        if(b){
+            errorLayout.visibility=View.VISIBLE
+//            repoRecyclerView.visibility=View.GONE
+        }
+        else{
+            errorLayout.visibility=View.GONE
+//            repoRecyclerView.visibility=View.VISIBLE
+        }
+
+    }
 
 
 }

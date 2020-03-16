@@ -37,8 +37,8 @@ fun bindAdapterDateText(textView: TextView,date:String){
     }
 }
 @BindingAdapter("shapeColor")
-fun bindAdapterShapeColor(imageView: ImageView,language:String){
-    if(language!=null){
+fun bindAdapterShapeColor(imageView: ImageView,language:String?){
+    if(language!=null||language==""){
 
         val tex=getJsonDataFromAsset(imageView.context,"colors.json")
 

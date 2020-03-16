@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:visibility="gone"
     tools:visibility="visible"
-    android:id="@+id/noResultLayoutLayout"
+    android:id="@+id/errorLayout"
     android:paddingTop="100dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/iconTextView"
         android:gravity="center_horizontal"
-        android:text="There is no such repository" />
+        android:text="rate limit" />
 
 
 </RelativeLayout>

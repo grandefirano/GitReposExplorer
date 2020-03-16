@@ -312,18 +312,15 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-                <androidx.core.widget.NestedScrollView
-                    android:layout_width="409dp"
-                    android:layout_height="127dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/contributorsTitleTextView">
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/contributorsRecyclerView"
+                        android:paddingBottom="4dp"
+                        android:paddingHorizontal="15dp"
+                        android:clipToPadding = "false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/contributorsTitleTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                </androidx.core.widget.NestedScrollView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
