@@ -163,7 +163,7 @@
                 android:id="@+id/starInDetailImageView"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_star"
+                android:src="@drawable/ic_star_repo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="171dp"

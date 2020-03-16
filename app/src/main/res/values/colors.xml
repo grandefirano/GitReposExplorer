@@ -9,4 +9,6 @@
     <color name="colorTextSecondary">#fff</color>
     <color name="colorHyperLink">#00e</color>
 
+    <color name="ic_launcher_background">#24292E</color>
+
 </resources>
