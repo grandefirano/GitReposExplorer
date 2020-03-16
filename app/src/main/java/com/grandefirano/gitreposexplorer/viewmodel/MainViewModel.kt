@@ -33,8 +33,14 @@ class MainViewModel(val view:MainContract.MainView,val model: ModelImpl):MainCon
         view.showServerError(false)
     }
 
-    override fun onSortByClicked() {
-        TODO("Not yet implemented")
+    override fun onSortByStateChanged(sort: String) {
+        sortListBy = sort
+        onQueryChange()
+    }
+
+    override fun onQueryTextChanged(searchText: String) {
+        actualSearchText=searchText
+        onQueryChange()
     }
 
     override fun onRepoClicked(repo:Repo) {

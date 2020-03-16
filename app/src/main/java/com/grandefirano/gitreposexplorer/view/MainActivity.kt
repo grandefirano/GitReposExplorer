@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_no_result.*
 class MainActivity : AppCompatActivity(),
     MainContract.MainView {
 
-    private lateinit var adapter:MainRecyclerViewAdapter
+    private lateinit var adapter: MainRecyclerViewAdapter
 
 
     private lateinit var mainViewModel: MainViewModel
@@ -34,118 +34,104 @@ class MainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
 
 
-
-
-
         //TODO: DO ZMIANY
-        val modelImpl=ExplorerApplication.model
-        mainViewModel=MainViewModel(this,modelImpl)
+        val modelImpl = ExplorerApplication.model
+        mainViewModel = MainViewModel(this, modelImpl)
         mainViewModel.onViewInit()
 
-        println("owner mainActiv "+modelImpl.toString())
+        println("owner mainActiv " + modelImpl.toString())
 
-        val layoutManager=LinearLayoutManager(this)
-        repoRecyclerView.layoutManager=layoutManager
+        val layoutManager = LinearLayoutManager(this)
+        repoRecyclerView.layoutManager = layoutManager
         repoRecyclerView.setHasFixedSize(true)
-        var totalItemCount:Int
-        repoRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+        var totalItemCount: Int
+        repoRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                 totalItemCount=layoutManager.itemCount
-                var lastVisiblePos=
+                totalItemCount = layoutManager.itemCount
+                var lastVisiblePos =
                     layoutManager.findLastCompletelyVisibleItemPosition()
-                    mainViewModel.loadMoreItems(totalItemCount,lastVisiblePos)
-                }
+                mainViewModel.loadMoreItems(totalItemCount, lastVisiblePos)
+            }
 
         })
 
-        adapter=MainRecyclerViewAdapter(mainViewModel)
-        repoRecyclerView.adapter=adapter
+        adapter = MainRecyclerViewAdapter(mainViewModel)
+        repoRecyclerView.adapter = adapter
 
 
         val titlesOfSpinner = resources.getStringArray(R.array.sort_by_list_title)
         val valuesOfSpinner = resources.getStringArray(R.array.sort_by_list_value)
 
-        val adapter2: ArrayAdapter<String> = ArrayAdapter<String>(
+        val adapterSpinner: ArrayAdapter<String> = ArrayAdapter<String>(
             applicationContext,
             R.layout.item_checked_spinner,
             titlesOfSpinner
         )
-        adapter2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-        spinner.adapter = adapter2
+        adapterSpinner.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        spinner.adapter = adapterSpinner
         spinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
+                println("Main Activity spinner nothing selected")
             }
-
             override fun onItemSelected(
                 parentView: AdapterView<*>?,
                 selectedItemView: View,
                 position: Int,
-                id: Long
-            ) {
-
-                mainViewModel.sortListBy=valuesOfSpinner[position]
-                mainViewModel.onQueryChange()
+                id: Long) {
+                var sortByState=valuesOfSpinner[position]
+                mainViewModel.onSortByStateChanged(sortByState)
+                println("Main Activity spinner $sortByState")
             }
-
         }
 
-        mainViewModel.isServerLimitExceeded.value=false
-
+        /**
+         * LIVE DATA OBSERVERS
+         */
 
         mainViewModel.isServerLimitExceeded.observe(this, Observer {
 
-            println("dddd main acti ERRPR$it")
+            println("Main Activity observe ServerLimit= $it")
 
             it?.let {
-                 showServerError(it)
+                showServerError(it)
                 showNoResults(false)
                 showList(false)
             }
-
         })
 
         mainViewModel.filteredRepositories.observe(this, Observer {
 
-            println("ddd list ${it.isEmpty()}")
+            println("Main Activity observe list is empty?= ${it.isEmpty()}")
             adapter.submitList(it)
             showServerError(false)
-            if(it.isEmpty()){
+            if (it.isEmpty()) {
                 showNoResults(true)
                 showList(false)
-            }else {
+            } else {
                 showList(true)
-               showNoResults(false)
+                showNoResults(false)
             }
-
-
         })
-
-
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater=menuInflater
-        inflater.inflate(R.menu.menu_main,menu)
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_main, menu)
 
         val searchItem = menu.findItem(R.id.app_bar_search)
-        val searchView=searchItem.actionView as SearchView
+        val searchView = searchItem.actionView as SearchView
         searchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
-
             override fun onQueryTextChange(newText: String): Boolean {
-                println("onqerychangd $newText")
-                mainViewModel.actualSearchText=newText
-                mainViewModel.onQueryChange()
+                println("Main Activity search Text Change =$newText")
+                mainViewModel.onQueryTextChanged(newText)
                 return false
             }
         })
-
         searchButton.setOnClickListener {
             searchItem.expandActionView()
             searchView.requestFocus()
@@ -153,64 +139,55 @@ class MainActivity : AppCompatActivity(),
         return true
     }
 
-    //TODO
+    /**
+     * INTENT
+     */
+
+    override fun goToDetailsView() {
+        println("View open Details Activity")
+        intent = Intent(this, DetailsActivity::class.java)
+        startActivity(intent)
+    }
+
+    /**
+     * SHOW LAYOUTS
+     */
     override fun showList(ifShow: Boolean) {
         println("View show list: $ifShow")
-        if(ifShow) {
+        if (ifShow)
             repoRecyclerView.visibility = View.VISIBLE
-
-        }else{
+         else
             repoRecyclerView.visibility = View.GONE
-
-        }
-        //welcomeLayout.visibility=View.GONE
     }
 
     override fun showWelcomeScreen(ifShow: Boolean) {
-        //toolbarLayout.visibility=View.GONE
-        //repoRecyclerView.visibility=View.GONE
         println("View show welcome: $ifShow")
-        if(ifShow) {
+
+        if (ifShow) {
             welcomeLayout.visibility = View.VISIBLE
             toolbarLayout.visibility = View.GONE
-        }else{
-            welcomeLayout.visibility=View.GONE
+        } else {
+            welcomeLayout.visibility = View.GONE
             toolbarLayout.visibility = View.VISIBLE
         }
     }
 
-
-    override fun updateList(repositories: List<Repo>) {
-        //adapter.notifyDataSetChanged()
-
-    }
-
-    override fun goToDetailsView() {
-        intent=Intent(this,DetailsActivity::class.java)
-        startActivity(intent)
-    }
-
     override fun showNoResults(ifShow: Boolean) {
-        if(ifShow)
-        noResultLayoutLayout.visibility=View.VISIBLE
+        println("View show noResult prompt: $ifShow")
+        if (ifShow)
+            noResultLayoutLayout.visibility = View.VISIBLE
         else
-            noResultLayoutLayout.visibility=View.GONE
+            noResultLayoutLayout.visibility = View.GONE
 
     }
 
 
-
-    override fun showServerError(b:Boolean) {
-        println("View show error: $b")
-        if(b){
-            errorLayout.visibility=View.VISIBLE
-//            repoRecyclerView.visibility=View.GONE
-        }
-        else{
-            errorLayout.visibility=View.GONE
-//            repoRecyclerView.visibility=View.VISIBLE
-        }
-
+    override fun showServerError(ifShow: Boolean) {
+        println("View show error: $ifShow")
+        if (ifShow)
+            errorLayout.visibility = View.VISIBLE
+         else
+            errorLayout.visibility = View.GONE
     }
 
 

@@ -10,11 +10,9 @@ interface MainContract {
 
         fun showList(ifShow:Boolean)
         fun showWelcomeScreen(ifShow: Boolean)
-        fun updateList(repositories:List<Repo>)
-
         fun goToDetailsView()
         fun showNoResults(ifShow: Boolean)
-        fun showServerError(b:Boolean)
+        fun showServerError(ifShow:Boolean)
     }
 
     interface MainViewModel{
@@ -24,7 +22,8 @@ interface MainContract {
 
         fun onQueryChange()
         fun onViewInit()
-        fun onSortByClicked()
+        fun onQueryTextChanged(searchText:String)
+        fun onSortByStateChanged(sort:String)
         fun onRepoClicked(repo:Repo)
         fun loadMoreItems(totalItemCount:Int,lastVisiblePos:Int)
         fun onNoItemInList(b: Boolean)
