@@ -15,7 +15,7 @@ class ExplorerApplication : Application() {
          * SINGLETON FOR APPLICATION CONTEXT
          */
         lateinit var apiInterface: ApiInterface
-        lateinit var model: ModelImpl
+
     }
 
     override fun onCreate() {
@@ -30,10 +30,6 @@ class ExplorerApplication : Application() {
             .build()
         apiInterface = retrofit.create(ApiInterface::class.java)
 
-        /**
-         * MODEL INIT
-         */
-        model = ModelImpl.getInstance()
 
     }
 }

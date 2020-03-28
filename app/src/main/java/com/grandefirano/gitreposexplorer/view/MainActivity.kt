@@ -113,6 +113,7 @@ class MainActivity : AppCompatActivity(),
     /**
      * SPINNER
      */
+
     private fun initSpinner() {
         val titlesOfSpinner = resources.getStringArray(R.array.sort_by_list_title)
         val valuesOfSpinner = resources.getStringArray(R.array.sort_by_list_value)

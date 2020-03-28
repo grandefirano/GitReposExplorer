@@ -6,8 +6,8 @@ import com.grandefirano.gitreposexplorer.api.Repo
 
 interface Model {
 
-    var repos: MutableLiveData<List<Repo>>
-    var isServerLimitExceeded: MutableLiveData<Boolean>
+    val repos: MutableLiveData<List<Repo>>
+    val isServerLimitExceeded: MutableLiveData<Boolean>
 
     fun getRepositories(searchText: String, sortBy: String, page: Int)
     fun getContributors(repo: Repo)

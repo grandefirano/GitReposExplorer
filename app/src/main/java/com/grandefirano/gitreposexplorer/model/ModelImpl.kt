@@ -12,25 +12,24 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class ModelImpl @Inject constructor() : Model {
+object ModelImpl : Model {
 
 
     /**
      * SINGLETON
      */
-    companion object {
-        private var modelImpl: ModelImpl? = null
-        fun getInstance(): ModelImpl {
-            if (modelImpl == null) {
-                modelImpl = ModelImpl()
-            }
-            return modelImpl as ModelImpl
-        }
-    }
 
-    override var repos = MutableLiveData<List<Repo>>()
-    var actualRepo = MutableLiveData<Repo>()
-    override var isServerLimitExceeded = MutableLiveData(false)
+        private var modelImpl: ModelImpl? = null
+//        fun getInstance(): ModelImpl {
+//            if (modelImpl == null) {
+//                modelImpl = ModelImpl()
+//            }
+//            return modelImpl as ModelImpl
+//        }
+
+    override val repos = MutableLiveData<List<Repo>>()
+    val actualRepo = MutableLiveData<Repo>()
+    override val isServerLimitExceeded = MutableLiveData(false)
 
     override fun setActualRepository(repo: Repo) {
 

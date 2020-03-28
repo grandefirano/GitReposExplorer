@@ -29,12 +29,22 @@ class MainRecyclerViewAdapter(val viewModel: MainViewModel) :
         }
     }
 
+    override fun getItemViewType(position: Int): Int {
+        if(getItem(position).starsCount>500){
+            return R.layout.item_main_list
+        }else{
+            return R.layout.item_main_list
+        }
+    }
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoHolder {
+
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding =
             DataBindingUtil.inflate<ItemMainListBinding>(
                 layoutInflater,
-                R.layout.item_main_list,
+                viewType,
                 parent,
                 false
             )
