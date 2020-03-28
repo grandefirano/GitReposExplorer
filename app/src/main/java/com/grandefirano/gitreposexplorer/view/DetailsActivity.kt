@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
@@ -33,36 +35,31 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.DetailsView {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp)
 
         /**
-         * INIT MVVM & BINDING
+         * INIT MVVM & ADAPTER
          */
 
         val modelImpl = ModelImpl
         val detailsViewModel = DetailsViewModel(this, modelImpl)
 
-        println("Details Ativity Model Id= $modelImpl")
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_details)
-        binding.lifecycleOwner = this
-        binding.viewModel = detailsViewModel
-
-
         websiteTextView.paintFlags = (websiteTextView.paintFlags
                 or Paint.UNDERLINE_TEXT_FLAG)
 
-        /**
-         * CONTRIBUTORS RECYCLERVIEW
-         */
 
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        val adapter = ContributorsAdapter()
-        contributorsRecyclerView.layoutManager = layoutManager
-        contributorsRecyclerView.setHasFixedSize(true)
-        contributorsRecyclerView.adapter = adapter
-
+        val adapter=ContributorsAdapter()
 
         /**
-         * OBSERVERS OF LIVE DATA
+         * INIT FUNCTIONS
          */
+        initBinding(detailsViewModel)
+        initContributorsRecyclerView(ContributorsAdapter())
+        initObserversOfLiveData(detailsViewModel,adapter)
 
+    }
+    /**
+     * INIT OBSERVERS OF LIVE DATA
+     */
+
+    private fun initObserversOfLiveData(detailsViewModel: DetailsViewModel,adapter: ContributorsAdapter) {
         detailsViewModel.actualRepo.observe(this, Observer {
             if (it.contributors.isNullOrEmpty())
                 detailsViewModel.onInitView(it)
@@ -75,6 +72,26 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.DetailsView {
                 if (it) showServerError()
             }
         })
+    }
+
+    /**
+     * INIT CONTRIBUTORS RECYCLERVIEW
+     */
+    private fun initContributorsRecyclerView(adapter:ContributorsAdapter) {
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        contributorsRecyclerView.layoutManager = layoutManager
+        contributorsRecyclerView.setHasFixedSize(true)
+        contributorsRecyclerView.adapter = adapter
+    }
+
+    /**
+     * INIT BINDING
+     */
+    private fun initBinding(detailsViewModel: DetailsViewModel) {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_details)
+        binding.lifecycleOwner = this
+        binding.viewModel = detailsViewModel
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
