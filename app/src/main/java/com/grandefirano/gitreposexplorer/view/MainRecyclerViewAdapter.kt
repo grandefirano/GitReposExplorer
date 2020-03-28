@@ -11,11 +11,11 @@ import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.databinding.ItemMainListBinding
 import com.grandefirano.gitreposexplorer.viewmodel.MainViewModel
 
-class MainRecyclerViewAdapter(val viewModel: MainViewModel) :
-    ListAdapter<Repo, MainRecyclerViewAdapter.RepoHolder>(DIFF_CALBACK) {
+class MainRecyclerViewAdapter(private val viewModel: MainViewModel) :
+    ListAdapter<Repo, MainRecyclerViewAdapter.RepoHolder>(DIFF_CALLBACK) {
 
     companion object {
-        val DIFF_CALBACK: DiffUtil.ItemCallback<Repo> = object : DiffUtil.ItemCallback<Repo>() {
+        private val DIFF_CALLBACK: DiffUtil.ItemCallback<Repo> = object : DiffUtil.ItemCallback<Repo>() {
             override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
                 return oldItem.id == newItem.id
             }
@@ -30,10 +30,10 @@ class MainRecyclerViewAdapter(val viewModel: MainViewModel) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        if(getItem(position).starsCount>500){
-            return R.layout.item_main_list
+        return if(getItem(position).starsCount>500){
+            R.layout.item_main_list
         }else{
-            return R.layout.item_main_list
+            R.layout.item_main_list
         }
     }
 
@@ -58,7 +58,7 @@ class MainRecyclerViewAdapter(val viewModel: MainViewModel) :
         holder.bind(viewModel, getItem(position))
     }
 
-    class RepoHolder(val binding: ItemMainListBinding) : RecyclerView.ViewHolder(binding.root) {
+    class RepoHolder(private val binding: ItemMainListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(viewModel: MainViewModel, repo: Repo) {
 
             binding.viewModel = viewModel

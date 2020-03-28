@@ -3,7 +3,6 @@ package com.grandefirano.gitreposexplorer
 import android.app.Application
 import com.grandefirano.gitreposexplorer.api.ApiConstants
 import com.grandefirano.gitreposexplorer.api.ApiInterface
-import com.grandefirano.gitreposexplorer.model.ModelImpl
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

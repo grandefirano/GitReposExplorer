@@ -8,12 +8,12 @@ import com.grandefirano.gitreposexplorer.contracts.MainContract
 import com.grandefirano.gitreposexplorer.contracts.Model
 
 
-class MainViewModel(val view: MainContract.MainView, val model: Model) :
+class MainViewModel(private val view: MainContract.MainView, private val model: Model) :
     ViewModel(), MainContract.MainViewModel {
 
     val filteredRepositories: LiveData<List<Repo>> = model.repos
     override var actualSearchText: String = ""
-    var actualPage: Int = 1
+    private var actualPage: Int = 1
     override val isServerLimitExceeded = model.isServerLimitExceeded
     override var sortListBy: String = ""
 

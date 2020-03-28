@@ -12,7 +12,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
 import com.grandefirano.gitreposexplorer.contracts.MainContract
 import com.grandefirano.gitreposexplorer.contracts.Model

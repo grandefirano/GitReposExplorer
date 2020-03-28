@@ -7,7 +7,7 @@ import com.grandefirano.gitreposexplorer.model.ModelImpl
 
 
 class DetailsViewModel(
-    val view: DetailsContract.DetailsView,
+    private val view: DetailsContract.DetailsView,
     private val model: ModelImpl
 ) : ViewModel(), DetailsContract.DetailsViewModel {
 

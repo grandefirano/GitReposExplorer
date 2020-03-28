@@ -12,10 +12,10 @@ import com.grandefirano.gitreposexplorer.databinding.ItemContributorListBinding
 
 
 class ContributorsAdapter :
-    ListAdapter<Owner, ContributorsAdapter.ContributorHolder>(DIFF_CALBACK) {
+    ListAdapter<Owner, ContributorsAdapter.ContributorHolder>(DIFF_CALLBACK) {
 
     companion object {
-        val DIFF_CALBACK: DiffUtil.ItemCallback<Owner> = object : DiffUtil.ItemCallback<Owner>() {
+        private val DIFF_CALLBACK: DiffUtil.ItemCallback<Owner> = object : DiffUtil.ItemCallback<Owner>() {
             override fun areItemsTheSame(oldItem: Owner, newItem: Owner): Boolean {
                 return oldItem.id == newItem.id
             }
