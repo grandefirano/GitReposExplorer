@@ -16,7 +16,7 @@ interface MainContract {
     }
 
     interface MainViewModel {
-        var isServerLimitExceeded: MutableLiveData<Boolean>
+        val isServerLimitExceeded: MutableLiveData<Boolean>
         var sortListBy: String
         var actualSearchText: String
 

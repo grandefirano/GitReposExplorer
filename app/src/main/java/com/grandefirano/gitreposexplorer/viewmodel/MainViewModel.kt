@@ -12,10 +12,10 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(val view: MainContract.MainView, val model: Model) :
     ViewModel(), MainContract.MainViewModel {
 
-    var filteredRepositories: LiveData<List<Repo>> = model.repos
+    val filteredRepositories: LiveData<List<Repo>> = model.repos
     override var actualSearchText: String = ""
     var actualPage: Int = 1
-    override var isServerLimitExceeded = model.isServerLimitExceeded
+    override val isServerLimitExceeded = model.isServerLimitExceeded
     override var sortListBy: String = ""
 
 

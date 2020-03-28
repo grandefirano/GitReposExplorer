@@ -16,6 +16,7 @@ import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
 import com.grandefirano.gitreposexplorer.contracts.MainContract
 import com.grandefirano.gitreposexplorer.contracts.Model
+import com.grandefirano.gitreposexplorer.model.ModelImpl
 
 import com.grandefirano.gitreposexplorer.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,7 +38,9 @@ class MainActivity : AppCompatActivity(),
         /**
          * INIT MVVM
          */
-        model = ExplorerApplication.model
+        model = ModelImpl
+
+        println("Main Ativity Model Id= $model")
         mainViewModel = MainViewModel(this, model)
         mainViewModel.onViewInit()
 

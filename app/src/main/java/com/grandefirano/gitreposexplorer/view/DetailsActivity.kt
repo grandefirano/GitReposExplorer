@@ -14,7 +14,9 @@ import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
 import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.contracts.DetailsContract
+import com.grandefirano.gitreposexplorer.contracts.Model
 import com.grandefirano.gitreposexplorer.databinding.ActivityDetailsBinding
+import com.grandefirano.gitreposexplorer.model.ModelImpl
 import com.grandefirano.gitreposexplorer.viewmodel.DetailsViewModel
 import kotlinx.android.synthetic.main.activity_details.*
 
@@ -34,9 +36,10 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.DetailsView {
          * INIT MVVM & BINDING
          */
 
-        val modelImpl = ExplorerApplication.model
+        val modelImpl = ModelImpl
         val detailsViewModel = DetailsViewModel(this, modelImpl)
 
+        println("Details Ativity Model Id= $modelImpl")
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details)
         binding.lifecycleOwner = this
         binding.viewModel = detailsViewModel
