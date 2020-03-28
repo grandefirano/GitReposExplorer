@@ -41,17 +41,13 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.DetailsView {
         val modelImpl = ModelImpl
         val detailsViewModel = DetailsViewModel(this, modelImpl)
 
-        websiteTextView.paintFlags = (websiteTextView.paintFlags
-                or Paint.UNDERLINE_TEXT_FLAG)
-
-
         val adapter=ContributorsAdapter()
 
         /**
          * INIT FUNCTIONS
          */
         initBinding(detailsViewModel)
-        initContributorsRecyclerView(ContributorsAdapter())
+        initContributorsRecyclerView(adapter)
         initObserversOfLiveData(detailsViewModel,adapter)
 
     }
@@ -91,6 +87,9 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.DetailsView {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details)
         binding.lifecycleOwner = this
         binding.viewModel = detailsViewModel
+
+        websiteTextView.paintFlags = (websiteTextView.paintFlags
+                or Paint.UNDERLINE_TEXT_FLAG)
 
     }
 

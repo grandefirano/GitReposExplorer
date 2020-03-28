@@ -55,7 +55,6 @@ object ModelImpl : Model {
                         }
                     } else {
                         isServerLimitExceeded.postValue(
-                            //when 403 limit exceeded
                             response.code()==403
                         )
                     }
@@ -91,7 +90,6 @@ object ModelImpl : Model {
                     } else {
 
                         isServerLimitExceeded.postValue(
-                            //when 403 limit exceeded
                             response.code()==403
                         )
                     }
