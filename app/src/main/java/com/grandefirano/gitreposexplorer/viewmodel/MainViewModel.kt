@@ -6,10 +6,9 @@ import com.grandefirano.gitreposexplorer.api.ApiConstants
 import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.contracts.MainContract
 import com.grandefirano.gitreposexplorer.contracts.Model
-import com.grandefirano.gitreposexplorer.model.ModelImpl
-import javax.inject.Inject
 
-class MainViewModel @Inject constructor(val view: MainContract.MainView, val model: Model) :
+
+class MainViewModel(val view: MainContract.MainView, val model: Model) :
     ViewModel(), MainContract.MainViewModel {
 
     val filteredRepositories: LiveData<List<Repo>> = model.repos

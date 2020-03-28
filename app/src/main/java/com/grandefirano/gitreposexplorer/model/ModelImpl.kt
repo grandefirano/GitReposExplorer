@@ -10,22 +10,8 @@ import com.grandefirano.gitreposexplorer.contracts.Model
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import javax.inject.Inject
 
 object ModelImpl : Model {
-
-
-    /**
-     * SINGLETON
-     */
-
-        private var modelImpl: ModelImpl? = null
-//        fun getInstance(): ModelImpl {
-//            if (modelImpl == null) {
-//                modelImpl = ModelImpl()
-//            }
-//            return modelImpl as ModelImpl
-//        }
 
     override val repos = MutableLiveData<List<Repo>>()
     val actualRepo = MutableLiveData<Repo>()
@@ -69,8 +55,8 @@ object ModelImpl : Model {
                         }
                     } else {
                         isServerLimitExceeded.postValue(
-                            response.errorBody()?.string()
-                                ?.startsWith("{\"message\":\"API rate limit exceeded for")
+                            //when 403 limit exceeded
+                            response.code()==403
                         )
                     }
                 }
@@ -105,8 +91,8 @@ object ModelImpl : Model {
                     } else {
 
                         isServerLimitExceeded.postValue(
-                            response.errorBody()?.string()
-                                ?.startsWith("{\"message\":\"API rate limit exceeded for")
+                            //when 403 limit exceeded
+                            response.code()==403
                         )
                     }
                 }
