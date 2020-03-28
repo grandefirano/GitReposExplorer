@@ -1,4 +1,4 @@
-package com.grandefirano.gitreposexplorer.view
+package com.grandefirano.gitreposexplorer.features.showDetails
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,7 +12,9 @@ import com.grandefirano.gitreposexplorer.databinding.ItemContributorListBinding
 
 
 class ContributorsAdapter :
-    ListAdapter<Owner, ContributorsAdapter.ContributorHolder>(DIFF_CALLBACK) {
+    ListAdapter<Owner, ContributorsAdapter.ContributorHolder>(
+        DIFF_CALLBACK
+    ) {
 
     companion object {
         private val DIFF_CALLBACK: DiffUtil.ItemCallback<Owner> = object : DiffUtil.ItemCallback<Owner>() {
@@ -41,7 +43,9 @@ class ContributorsAdapter :
                 false
             )
 
-        return ContributorHolder(binding)
+        return ContributorHolder(
+            binding
+        )
     }
 
     override fun onBindViewHolder(holder: ContributorHolder, position: Int) {

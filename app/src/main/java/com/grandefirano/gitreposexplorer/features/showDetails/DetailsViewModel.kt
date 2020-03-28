@@ -1,9 +1,8 @@
-package com.grandefirano.gitreposexplorer.viewmodel
+package com.grandefirano.gitreposexplorer.features.showDetails
 
 import androidx.lifecycle.ViewModel
 import com.grandefirano.gitreposexplorer.api.Repo
-import com.grandefirano.gitreposexplorer.contracts.DetailsContract
-import com.grandefirano.gitreposexplorer.model.ModelImpl
+import com.grandefirano.gitreposexplorer.shared.model.ModelImpl
 
 
 class DetailsViewModel(

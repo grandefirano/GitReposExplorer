@@ -1,4 +1,4 @@
-package com.grandefirano.gitreposexplorer
+package com.grandefirano.gitreposexplorer.features.shared
 
 import android.content.Context
 import java.io.IOException

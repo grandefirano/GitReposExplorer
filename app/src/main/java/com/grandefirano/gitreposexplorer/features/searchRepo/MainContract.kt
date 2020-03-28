@@ -1,4 +1,4 @@
-package com.grandefirano.gitreposexplorer.contracts
+package com.grandefirano.gitreposexplorer.features.searchRepo
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

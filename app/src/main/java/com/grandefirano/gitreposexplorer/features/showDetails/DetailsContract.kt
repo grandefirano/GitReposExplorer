@@ -1,4 +1,4 @@
-package com.grandefirano.gitreposexplorer.contracts
+package com.grandefirano.gitreposexplorer.features.showDetails
 
 import com.grandefirano.gitreposexplorer.api.Repo
 

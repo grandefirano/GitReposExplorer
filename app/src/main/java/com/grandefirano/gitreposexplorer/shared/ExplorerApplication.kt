@@ -1,4 +1,4 @@
-package com.grandefirano.gitreposexplorer
+package com.grandefirano.gitreposexplorer.shared
 
 import android.app.Application
 import com.grandefirano.gitreposexplorer.api.ApiConstants

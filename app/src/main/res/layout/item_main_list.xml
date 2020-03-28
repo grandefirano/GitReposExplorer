@@ -10,7 +10,7 @@
             type="com.grandefirano.gitreposexplorer.api.Repo" />
         <variable
             name="viewModel"
-            type="com.grandefirano.gitreposexplorer.viewmodel.MainViewModel" />
+            type="com.grandefirano.gitreposexplorer.features.searchRepo.MainViewModel" />
 
     </data>
 

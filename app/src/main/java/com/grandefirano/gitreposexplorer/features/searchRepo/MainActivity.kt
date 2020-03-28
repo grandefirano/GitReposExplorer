@@ -1,4 +1,4 @@
-package com.grandefirano.gitreposexplorer.view
+package com.grandefirano.gitreposexplorer.features.searchRepo
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,11 +13,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.grandefirano.gitreposexplorer.R
-import com.grandefirano.gitreposexplorer.contracts.MainContract
-import com.grandefirano.gitreposexplorer.contracts.Model
-import com.grandefirano.gitreposexplorer.model.ModelImpl
+import com.grandefirano.gitreposexplorer.shared.model.Model
+import com.grandefirano.gitreposexplorer.shared.model.ModelImpl
+import com.grandefirano.gitreposexplorer.features.showDetails.DetailsActivity
 
-import com.grandefirano.gitreposexplorer.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_error.*
 import kotlinx.android.synthetic.main.fragment_no_result.*
@@ -40,7 +39,11 @@ class MainActivity : AppCompatActivity(),
         model = ModelImpl
 
         println("Main Ativity Model Id= $model")
-        mainViewModel = MainViewModel(this, model)
+        mainViewModel =
+            MainViewModel(
+                this,
+                model
+            )
         mainViewModel.onViewInit()
 
         /**
@@ -162,7 +165,10 @@ class MainActivity : AppCompatActivity(),
             }
         })
 
-        adapter = MainRecyclerViewAdapter(mainViewModel)
+        adapter =
+            MainRecyclerViewAdapter(
+                mainViewModel
+            )
         repoRecyclerView.adapter = adapter
 
     }

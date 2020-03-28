@@ -1,4 +1,4 @@
-package com.grandefirano.gitreposexplorer.view
+package com.grandefirano.gitreposexplorer.features.searchRepo
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.grandefirano.gitreposexplorer.R
 import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.databinding.ItemMainListBinding
-import com.grandefirano.gitreposexplorer.viewmodel.MainViewModel
 
 class MainRecyclerViewAdapter(private val viewModel: MainViewModel) :
-    ListAdapter<Repo, MainRecyclerViewAdapter.RepoHolder>(DIFF_CALLBACK) {
+    ListAdapter<Repo, MainRecyclerViewAdapter.RepoHolder>(
+        DIFF_CALLBACK
+    ) {
 
     companion object {
         private val DIFF_CALLBACK: DiffUtil.ItemCallback<Repo> = object : DiffUtil.ItemCallback<Repo>() {
@@ -50,7 +51,9 @@ class MainRecyclerViewAdapter(private val viewModel: MainViewModel) :
             )
 
 
-        return RepoHolder(binding)
+        return RepoHolder(
+            binding
+        )
     }
 
     override fun onBindViewHolder(holder: RepoHolder, position: Int) {

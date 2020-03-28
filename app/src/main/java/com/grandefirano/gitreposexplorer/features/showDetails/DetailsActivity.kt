@@ -1,4 +1,4 @@
-package com.grandefirano.gitreposexplorer.view
+package com.grandefirano.gitreposexplorer.features.showDetails
 
 import android.content.Intent
 import android.graphics.Paint
@@ -9,17 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
 import com.grandefirano.gitreposexplorer.api.Repo
-import com.grandefirano.gitreposexplorer.contracts.DetailsContract
-import com.grandefirano.gitreposexplorer.contracts.Model
 import com.grandefirano.gitreposexplorer.databinding.ActivityDetailsBinding
-import com.grandefirano.gitreposexplorer.model.ModelImpl
-import com.grandefirano.gitreposexplorer.viewmodel.DetailsViewModel
+import com.grandefirano.gitreposexplorer.shared.model.ModelImpl
 import kotlinx.android.synthetic.main.activity_details.*
 
 class DetailsActivity : AppCompatActivity(), DetailsContract.DetailsView {
@@ -39,9 +33,14 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.DetailsView {
          */
 
         val modelImpl = ModelImpl
-        val detailsViewModel = DetailsViewModel(this, modelImpl)
+        val detailsViewModel =
+            DetailsViewModel(
+                this,
+                modelImpl
+            )
 
-        val adapter=ContributorsAdapter()
+        val adapter=
+            ContributorsAdapter()
 
         /**
          * INIT FUNCTIONS
@@ -55,7 +54,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.DetailsView {
      * INIT OBSERVERS OF LIVE DATA
      */
 
-    private fun initObserversOfLiveData(detailsViewModel: DetailsViewModel,adapter: ContributorsAdapter) {
+    private fun initObserversOfLiveData(detailsViewModel: DetailsViewModel, adapter: ContributorsAdapter) {
         detailsViewModel.actualRepo.observe(this, Observer {
             if (it.contributors.isNullOrEmpty())
                 detailsViewModel.onInitView(it)
@@ -73,7 +72,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.DetailsView {
     /**
      * INIT CONTRIBUTORS RECYCLERVIEW
      */
-    private fun initContributorsRecyclerView(adapter:ContributorsAdapter) {
+    private fun initContributorsRecyclerView(adapter: ContributorsAdapter) {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         contributorsRecyclerView.layoutManager = layoutManager
         contributorsRecyclerView.setHasFixedSize(true)
