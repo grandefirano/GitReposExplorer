@@ -1,4 +1,4 @@
-package com.grandefirano.gitreposexplorer.contracts
+package com.grandefirano.gitreposexplorer.features.searchRepo
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,7 +16,7 @@ interface MainContract {
     }
 
     interface MainViewModel {
-        var isServerLimitExceeded: MutableLiveData<Boolean>
+        val isServerLimitExceeded: MutableLiveData<Boolean>
         var sortListBy: String
         var actualSearchText: String
 

@@ -1,9 +1,8 @@
-package com.grandefirano.gitreposexplorer
+package com.grandefirano.gitreposexplorer.shared
 
 import android.app.Application
 import com.grandefirano.gitreposexplorer.api.ApiConstants
 import com.grandefirano.gitreposexplorer.api.ApiInterface
-import com.grandefirano.gitreposexplorer.model.ModelImpl
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -15,7 +14,7 @@ class ExplorerApplication : Application() {
          * SINGLETON FOR APPLICATION CONTEXT
          */
         lateinit var apiInterface: ApiInterface
-        lateinit var model: ModelImpl
+
     }
 
     override fun onCreate() {
@@ -30,10 +29,6 @@ class ExplorerApplication : Application() {
             .build()
         apiInterface = retrofit.create(ApiInterface::class.java)
 
-        /**
-         * MODEL INIT
-         */
-        model = ModelImpl.getInstance()
 
     }
 }

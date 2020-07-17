@@ -1,21 +1,19 @@
-package com.grandefirano.gitreposexplorer.viewmodel
+package com.grandefirano.gitreposexplorer.features.searchRepo
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.grandefirano.gitreposexplorer.api.ApiConstants
 import com.grandefirano.gitreposexplorer.api.Repo
-import com.grandefirano.gitreposexplorer.contracts.MainContract
-import com.grandefirano.gitreposexplorer.contracts.Model
-import com.grandefirano.gitreposexplorer.model.ModelImpl
-import javax.inject.Inject
+import com.grandefirano.gitreposexplorer.shared.model.Model
 
-class MainViewModel @Inject constructor(val view: MainContract.MainView, val model: Model) :
+
+class MainViewModel(private val view: MainContract.MainView, private val model: Model) :
     ViewModel(), MainContract.MainViewModel {
 
-    var filteredRepositories: LiveData<List<Repo>> = model.repos
+    val filteredRepositories: LiveData<List<Repo>> = model.repos
     override var actualSearchText: String = ""
-    var actualPage: Int = 1
-    override var isServerLimitExceeded = model.isServerLimitExceeded
+    private var actualPage: Int = 1
+    override val isServerLimitExceeded = model.isServerLimitExceeded
     override var sortListBy: String = ""
 
 

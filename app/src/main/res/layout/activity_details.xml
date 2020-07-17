@@ -2,11 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.DetailsActivity">
+    tools:context=".features.showDetails.DetailsActivity">
     <data>
         <variable
             name="viewModel"
-            type="com.grandefirano.gitreposexplorer.viewmodel.DetailsViewModel" />
+            type="com.grandefirano.gitreposexplorer.features.showDetails.DetailsViewModel" />
 
     </data>
 <ScrollView

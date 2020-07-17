@@ -10,7 +10,7 @@
             type="com.grandefirano.gitreposexplorer.api.Repo" />
         <variable
             name="viewModel"
-            type="com.grandefirano.gitreposexplorer.viewmodel.MainViewModel" />
+            type="com.grandefirano.gitreposexplorer.features.searchRepo.MainViewModel" />
 
     </data>
 
@@ -54,6 +54,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:text="@{repo.name}"
+
             android:textColor="#F32C2B2B"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/countOfStars"

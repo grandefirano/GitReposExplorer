@@ -1,4 +1,4 @@
-package com.grandefirano.gitreposexplorer.view
+package com.grandefirano.gitreposexplorer.features.searchRepo
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,12 +12,11 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.grandefirano.gitreposexplorer.ExplorerApplication
 import com.grandefirano.gitreposexplorer.R
-import com.grandefirano.gitreposexplorer.contracts.MainContract
-import com.grandefirano.gitreposexplorer.contracts.Model
+import com.grandefirano.gitreposexplorer.shared.model.Model
+import com.grandefirano.gitreposexplorer.shared.model.ModelImpl
+import com.grandefirano.gitreposexplorer.features.showDetails.DetailsActivity
 
-import com.grandefirano.gitreposexplorer.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_error.*
 import kotlinx.android.synthetic.main.fragment_no_result.*
@@ -26,19 +25,24 @@ import kotlinx.android.synthetic.main.fragment_no_result.*
 class MainActivity : AppCompatActivity(),
     MainContract.MainView {
 
-    private lateinit var adapter: MainRecyclerViewAdapter
-    lateinit var mainViewModel: MainViewModel
-    lateinit var model: Model
+    private val adapter: MainRecyclerViewAdapter by lazy{
+        MainRecyclerViewAdapter(mainViewModel)
+    }
+    val mainViewModel: MainViewModel by lazy {
+        MainViewModel(this, model)
+    }
+    private val model: Model by lazy {
+        ModelImpl
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /**
-         * INIT MVVM
-         */
-        model = ExplorerApplication.model
-        mainViewModel = MainViewModel(this, model)
+
+        println("Main Ativity Model Id= $model")
+
+
         mainViewModel.onViewInit()
 
         /**
@@ -113,6 +117,7 @@ class MainActivity : AppCompatActivity(),
     /**
      * SPINNER
      */
+
     private fun initSpinner() {
         val titlesOfSpinner = resources.getStringArray(R.array.sort_by_list_title)
         val valuesOfSpinner = resources.getStringArray(R.array.sort_by_list_value)
@@ -159,7 +164,6 @@ class MainActivity : AppCompatActivity(),
             }
         })
 
-        adapter = MainRecyclerViewAdapter(mainViewModel)
         repoRecyclerView.adapter = adapter
 
     }

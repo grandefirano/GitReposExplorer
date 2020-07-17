@@ -1,4 +1,4 @@
-package com.grandefirano.gitreposexplorer.binding
+package com.grandefirano.gitreposexplorer.features.shared
 
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -9,7 +9,7 @@ import androidx.databinding.BindingAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.grandefirano.gitreposexplorer.R
-import com.grandefirano.gitreposexplorer.getJsonDataFromAsset
+import com.grandefirano.gitreposexplorer.features.shared.getJsonDataFromAsset
 import com.squareup.picasso.Picasso
 import java.lang.reflect.Type
 import java.text.SimpleDateFormat
@@ -32,9 +32,13 @@ fun bindAdapterDateText(textView: TextView, date: String) {
 
 @BindingAdapter("shapeColor")
 fun bindAdapterShapeColor(imageView: ImageView, language: String?) {
-    if (language != null || language == "") {
+    if (language!= null || language == "") {
 
-        val tex = getJsonDataFromAsset(imageView.context, "colors.json")
+        val tex =
+            getJsonDataFromAsset(
+                imageView.context,
+                "colors.json"
+            )
 
         val type: Type = object :
             TypeToken<Map<String?, String?>?>() {}.type

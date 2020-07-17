@@ -1,36 +1,20 @@
-package com.grandefirano.gitreposexplorer.model
+package com.grandefirano.gitreposexplorer.shared.model
 
 import androidx.lifecycle.MutableLiveData
-import com.grandefirano.gitreposexplorer.ExplorerApplication
+import com.grandefirano.gitreposexplorer.shared.ExplorerApplication
 import com.grandefirano.gitreposexplorer.api.ApiConstants.SIZE_OF_PAGE
 import com.grandefirano.gitreposexplorer.api.Owner
 import com.grandefirano.gitreposexplorer.api.Repo
 import com.grandefirano.gitreposexplorer.api.RepoSearchResult
-import com.grandefirano.gitreposexplorer.contracts.Model
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import javax.inject.Inject
 
-class ModelImpl @Inject constructor() : Model {
+object ModelImpl : Model {
 
-
-    /**
-     * SINGLETON
-     */
-    companion object {
-        private var modelImpl: ModelImpl? = null
-        fun getInstance(): ModelImpl {
-            if (modelImpl == null) {
-                modelImpl = ModelImpl()
-            }
-            return modelImpl as ModelImpl
-        }
-    }
-
-    override var repos = MutableLiveData<List<Repo>>()
-    var actualRepo = MutableLiveData<Repo>()
-    override var isServerLimitExceeded = MutableLiveData(false)
+    override val repos = MutableLiveData<List<Repo>>()
+    val actualRepo = MutableLiveData<Repo>()
+    override val isServerLimitExceeded = MutableLiveData(false)
 
     override fun setActualRepository(repo: Repo) {
 
@@ -58,20 +42,19 @@ class ModelImpl @Inject constructor() : Model {
 
                             val newArray = response.body()!!.repositories
                             if (page == 1) {
-                                this@ModelImpl.repos.value = newArray
+                                repos.value = newArray
                                 println("Model get repositories new list")
                             } else {
                                 repos.value = repos.value?.plus(newArray)
                                 println("Model get repositories append list")
                             }
                         } else {
-                            this@ModelImpl.repos.value = listOf()
+                            repos.value = listOf()
                             println("ddd model else on response")
                         }
                     } else {
                         isServerLimitExceeded.postValue(
-                            response.errorBody()?.string()
-                                ?.startsWith("{\"message\":\"API rate limit exceeded for")
+                            response.code()==403
                         )
                     }
                 }
@@ -106,8 +89,7 @@ class ModelImpl @Inject constructor() : Model {
                     } else {
 
                         isServerLimitExceeded.postValue(
-                            response.errorBody()?.string()
-                                ?.startsWith("{\"message\":\"API rate limit exceeded for")
+                            response.code()==403
                         )
                     }
                 }
