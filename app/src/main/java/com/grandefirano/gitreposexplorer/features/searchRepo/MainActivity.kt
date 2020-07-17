@@ -25,25 +25,24 @@ import kotlinx.android.synthetic.main.fragment_no_result.*
 class MainActivity : AppCompatActivity(),
     MainContract.MainView {
 
-    private lateinit var adapter: MainRecyclerViewAdapter
-    lateinit var mainViewModel: MainViewModel
-    lateinit var model: Model
+    private val adapter: MainRecyclerViewAdapter by lazy{
+        MainRecyclerViewAdapter(mainViewModel)
+    }
+    val mainViewModel: MainViewModel by lazy {
+        MainViewModel(this, model)
+    }
+    private val model: Model by lazy {
+        ModelImpl
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /**
-         * INIT MVVM
-         */
-        model = ModelImpl
 
         println("Main Ativity Model Id= $model")
-        mainViewModel =
-            MainViewModel(
-                this,
-                model
-            )
+
+
         mainViewModel.onViewInit()
 
         /**
@@ -165,10 +164,6 @@ class MainActivity : AppCompatActivity(),
             }
         })
 
-        adapter =
-            MainRecyclerViewAdapter(
-                mainViewModel
-            )
         repoRecyclerView.adapter = adapter
 
     }
